@@ -167,3 +167,53 @@ Every elevated 2.5D element generates two simultaneous shadow components:
   - Standard UI & Content White: $100\text{ nits}$ ($1.0\times$ SDR reference).
   - Specular Light Sweeps & Laser Flares: $400\text{ – }1000\text{ nits}$ ($4.0\times – 10.0\times$ peak headroom for lifelike luminance punch).
 
+---
+
+## 13. The 5 Core Studio VFX Shader & Dynamic Recipes
+
+Every motion piece employing organic liquid, glow, speed trails, chromatic aberration, or glassmorphism MUST adhere to these exact physical formulas and multi-tier shader specifications:
+
+### Recipe 1: Liquid / Organic Metaball Dynamics (`effects.liquid-metaball`)
+- **Phenomenon:** Multiple moving vector/shape bodies merge smoothly into a continuous surface membrane with surface tension before pinching off into droplets.
+- **Physical Formulation:** Scalar field thresholding $F(x,y) = \sum_{i=1}^N \frac{R_i^2}{(x - x_i)^2 + (y - y_i)^2} \ge T$ where $T \approx 1.0$.
+- **Core Parameters:**
+  - **Blur Kernel Spread ($\sigma$):** $40\text{px} – 80\text{px}$ (Controls merge reach).
+  - **Alpha Choke / Threshold ($C$):** $20\text{px} – 40\text{px}$ (Controls pinch sharpness and membrane rigidity).
+  - **Organic Edge Displace:** Amplitude $15\text{px}$, Frequency $20\text{px}$, Evolution speed $1.5\text{ rot/sec}$.
+  - **Color Fill Mode:** Additive Alpha Matte + Inner Fluid Specular highlight ($1.5\text{px}$ inner stroke).
+
+### Recipe 2: Deep Cosmic Glow & Multi-Tier Optical Bloom (`effects.cosmic-glow`)
+- **Phenomenon:** High-energy luminous emitters generate an un-clipped specular white core surrounded by saturated chromatic inner bloom, wide atmospheric scattering, and horizontal anamorphic streaks.
+- **Optical 4-Tier Pipeline:**
+  - **Tier 1 (Core Specular):** $100\%$ White/Peak luminance ($L > 0.95$), Radius $0\text{px} – 4\text{px}$, Blend: Normal.
+  - **Tier 2 (Inner High-Energy Bloom):** Saturated primary brand tint, Radius $12\text{px} – 20\text{px}$, Intensity $2.5\times$, Blend: Screen / Add.
+  - **Tier 3 (Volumetric Falloff):** Secondary ambient tint, Radius $80\text{px} – 140\text{px}$, Intensity $1.0\times$, Falloff $1/r^2$, Blend: Screen.
+  - **Tier 4 (Anamorphic Streak):** Horizontal flare stretch ($\sigma_x = 180\text{px}, \sigma_y = 6\text{px}$), Intensity $0.7\times$, Tint: Cyan/Electric Blue.
+
+### Recipe 3: Kinetic Speed Trails & Velocity Echoes (`effects.speed-trail`)
+- **Phenomenon:** High-velocity lead objects shed a luminous, decaying spatial wake that tapers along the velocity vector $\vec{v}$.
+- **Physical Formulation:** Trailing particle emission intensity $I(t) = I_0 \cdot e^{-\lambda(t - t_0)}$ where $\lambda = 4.5\text{ s}^{-1}$.
+- **Core Parameters:**
+  - **Echo Count / Samples:** $8 – 16$ discrete temporal samples.
+  - **Decay Factor ($\alpha$):** $0.80 – 0.88$ per step (Non-linear geometric falloff).
+  - **Time Step ($\Delta t$):** $-0.012\text{s} – -0.020\text{s}$ per echo sample.
+  - **Taper Geometry:** Tail scale shrinks from $100\% \to 15\%$, Stroke width tapers from $100\% \to 0\%$.
+
+### Recipe 4: Chromatic Dispersion & Prismatic Edge Glitch (`effects.chromatic-split`)
+- **Phenomenon:** Optical glass prism or high-velocity spatial shearing causes red, green, and blue light wavelengths to refract at distinct angles.
+- **Physical Formulation:** Cauchy's dispersion $n(\lambda) = A + B/\lambda^2$, resulting in spatial channel displacement $\vec{\delta}_{\text{RGB}} = [-\Delta x, 0, +\Delta x]$.
+- **Core Parameters:**
+  - **Lateral Shift Magnitude ($\Delta x$):** $2\text{px} – 8\text{px}$ (Subtle micro-fringe: $2\text{px}$; Kinetic impact glitch: $8\text{px}$).
+  - **Channel Channel Routing:** Red (Shift left $-100\%$), Green (Anchor $0\%$), Blue (Shift right $+100\%$).
+  - **Composite Blend Mode:** 100% Screen / Linear Dodge across all 3 color planes.
+
+### Recipe 5: Refractive Glassmorphism & Micro-Roughness Caustics (`effects.glass-caustics`)
+- **Phenomenon:** Elevated translucent panels distort background imagery with realistic depth refraction, frosted surface scattering, and dual contact shadows.
+- **Physical Formulation:** Fresnel reflectance $F(\theta) = F_0 + (1 - F_0)(1 - \cos\theta)^5$ with Backdrop Dispersion.
+- **Core Parameters:**
+  - **Backdrop Blur Spread:** $20\text{px} – 32\text{px}$ Frosted Satin.
+  - **Saturation Boost:** $+140\% – +180\%$ (Prevents dull gray washouts behind frosted glass).
+  - **Edge Specular Border:** $1\text{px}$ linear gradient from `rgba(255,255,255,0.40)` at top-left to `rgba(255,255,255,0.05)` at bottom-right.
+  - **Shadow Dual Stack:** Ambient Occlusion ($0\text{px } 2\text{px } 4\text{px } 60\%$) + Directional Penumbra ($0\text{px } 16\text{px } 32\text{px } 20\%$).
+
+

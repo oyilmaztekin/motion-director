@@ -47,3 +47,235 @@ This document serves as a conceptual translation dictionary for downstream imple
 - **Portals & Morphs:** Map `transition.mask-portal-expand` to Clipping Paths. Map `transition.morph-dock` to Bone Constraints and Vertex Interpolation.
 - **Vector Paths:** Animate vector vertices and path trim directly on Rive shape paths with bones/constraints.
 - **Hit-Area Protection:** Use transparent collision geometry to ensure interactive bounds conform to the Fitts's Law 44x44px standard.
+
+---
+
+## 3. Production Engine Implementation Recipes (The 5 Core VFX)
+
+When implementing the storyboard into a target engine, implementers MUST use these exact technical recipes:
+
+### Recipe 1: Liquid / Organic Metaballs (`effects.liquid-metaball`)
+
+#### A. After Effects (ExtendScript / Adjustment Layer)
+```javascript
+// 1. Group moving shape elements inside a Pre-Comp ("Liquid_Precomp")
+// 2. Add an Adjustment Layer on top with this exact effect stack:
+var blur = adjLayer.Effects.addProperty("ADBE Fast Blur");
+blur.property("Blurriness").setValue(60); // 40-80px range
+blur.property("Repeat Edge Pixels").setValue(1);
+
+var choker = adjLayer.Effects.addProperty("ADBE CC Simple Choker");
+choker.property("Choke Matte").setValue(30); // 20-40px range
+
+var displace = adjLayer.Effects.addProperty("ADBE Turbulent Displace");
+displace.property("Size").setValue(25);
+displace.property("Amount").setValue(15);
+displace.property("Evolution").expression = "time * 120;";
+```
+
+#### B. CSS / SVG (Web / Canvas / GSAP)
+```html
+<svg class="goo-filter" style="display:none;">
+  <defs>
+    <filter id="liquid-goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="blur" />
+      <feColorMatrix in="blur" mode="matrix" 
+        values="1 0 0 0 0  
+                0 1 0 0 0  
+                0 0 1 0 0  
+                0 0 0 24 -11" result="goo" />
+      <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+    </filter>
+  </defs>
+</svg>
+<style>
+  .liquid-container { filter: url(#liquid-goo); }
+</style>
+```
+
+#### C. GSAP MorphSVG Pipeline
+```javascript
+gsap.to(".liquid-droplet", {
+  duration: 0.6,
+  morphSVG: ".liquid-target-shape",
+  ease: "expo.out",
+  stagger: 0.04
+});
+```
+
+#### D. Rive (2D Interactive)
+- Use **Feathered Vertex Blends**: Deform mesh vertices using 2 dual bones with overlapping weights ($0.5 / 0.5$).
+- Use a **Clipping Path** driven by an animated Path constraint with smoothing bezier handles.
+
+#### E. WebGL / GLSL (SDF Metaballs)
+```glsl
+float smin(float a, float b, float k) {
+    float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
+    return mix(b, a, h) - k * h * (1.0 - h);
+}
+// Combine sphere SDFs with k = 0.35
+float d = smin(length(p - p1) - r1, length(p - p2) - r2, 0.35);
+```
+
+---
+
+### Recipe 2: Deep Cosmic Glow & Multi-Tier Optical Bloom (`effects.cosmic-glow`)
+
+#### A. After Effects (32bpc Linear Stack)
+```javascript
+// 1. Core Luminous Layer (Blend Mode: Add / Screen)
+// 2. Inner Glow Pass
+var innerGlow = glowLayer.Effects.addProperty("ADBE Glo2");
+innerGlow.property("Glow Threshold").setValue(75); // %
+innerGlow.property("Glow Radius").setValue(18);    // px
+innerGlow.property("Glow Intensity").setValue(2.2);
+
+// 3. Outer Volumetric Atmosphere Pass
+var outerGlow = glowLayer.Effects.addProperty("ADBE Glo2");
+outerGlow.property("Glow Threshold").setValue(40);
+outerGlow.property("Glow Radius").setValue(120);
+outerGlow.property("Glow Intensity").setValue(0.9);
+
+// 4. Anamorphic Flare Streak (Horizontal Stretch)
+var streak = glowLayer.Effects.addProperty("ADBE Directional Blur");
+streak.property("Direction").setValue(90); // Horizontal
+streak.property("Blur Length").setValue(140);
+```
+
+#### B. CSS / Web
+```css
+.cosmic-glow-hero {
+  filter: 
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 0 16px rgba(0, 229, 255, 0.85))
+    drop-shadow(0 0 64px rgba(99, 102, 241, 0.50))
+    drop-shadow(0 0 120px rgba(168, 85, 247, 0.30));
+  mix-blend-mode: screen;
+}
+```
+
+#### C. GSAP Animated Glow Pulse
+```javascript
+gsap.to(".cosmic-emitter", {
+  filter: "drop-shadow(0 0 24px rgba(0,229,255,1.0)) drop-shadow(0 0 96px rgba(99,102,241,0.8))",
+  duration: 0.8,
+  yoyo: true,
+  repeat: -1,
+  ease: "sine.inOut"
+});
+```
+
+#### D. Rive
+- Use a **Multi-Stop Radial Gradient** on an overlay circle (`#FFFFFF 0%` -> `#00E5FF 25%` -> `#6366F1 60%` -> `transparent 100%`).
+- Set Layer Blend Mode to **Screen** or **PlusLighter**.
+
+---
+
+### Recipe 3: Kinetic Speed Trails & Velocity Echoes (`effects.speed-trail`)
+
+#### A. After Effects (Echo / Particle Stream)
+```javascript
+var echo = leadLayer.Effects.addProperty("ADBE Echo");
+echo.property("Echo Time (seconds)").setValue(-0.015);
+echo.property("Number of Echoes").setValue(10);
+echo.property("Starting Intensity").setValue(1.0);
+echo.property("Decay").setValue(0.85);
+echo.property("Echo Operator").setValue(4); // Composite Behind (or Add)
+```
+
+#### B. CSS / SVG (Path Streaming)
+```css
+.velocity-trail-path {
+  stroke-dasharray: 120 400;
+  stroke-dashoffset: 0;
+  animation: streamTrail 0.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes streamTrail {
+  0% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: -520; opacity: 0; }
+}
+```
+
+#### C. GSAP Physics Velocity Wake
+```javascript
+gsap.to(".trail-node", {
+  x: "+=400",
+  stagger: {
+    each: 0.018,
+    from: "start"
+  },
+  scale: (i) => 1 - (i * 0.08),
+  opacity: (i) => Math.pow(0.85, i),
+  ease: "expo.out"
+});
+```
+
+---
+
+### Recipe 4: Chromatic Dispersion & RGB Split (`effects.chromatic-split`)
+
+#### A. After Effects (3-Channel Layer Split)
+```javascript
+// 1. Duplicate layer 3 times: Layer_Red, Layer_Green, Layer_Blue
+// 2. Set blend mode to SCREEN for all 3 layers
+// 3. Apply Shift Channels:
+//    - Layer_Red:   Red from Red,   Green: Off, Blue: Off -> Position: [X - 4, Y]
+//    - Layer_Green: Red: Off,       Green from Green, Blue: Off -> Position: [X, Y]
+//    - Layer_Blue:  Red: Off,       Green: Off, Blue from Blue -> Position: [X + 4, Y]
+```
+
+#### B. CSS / Canvas
+```css
+.chromatic-glitch {
+  text-shadow: 
+    -3px 0 0 rgba(255, 0, 85, 0.75),
+     3px 0 0 rgba(0, 230, 255, 0.75);
+  animation: chromatic-twitch 0.3s steps(2) infinite;
+}
+```
+
+---
+
+### Recipe 5: Refractive Glass & Dual Contact Shadow (`effects.glass-caustics`)
+
+#### A. After Effects (Frosted Panel & Dual Shadow)
+```javascript
+// AO Contact Shadow
+var ao = cardLayer.Effects.addProperty("ADBE Drop Shadow");
+ao.property("Distance").setValue(2);
+ao.property("Softness").setValue(4);
+ao.property("Opacity").setValue(153); // 60%
+
+// Dynamic Penumbra
+var penumbra = cardLayer.Effects.addProperty("ADBE Drop Shadow");
+penumbra.property("Distance").setValue(24);
+penumbra.property("Softness").setValue(48);
+penumbra.property("Opacity").setValue(51); // 20%
+```
+
+#### B. CSS (visionOS Standard)
+```css
+.frosted-glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.60),       /* AO Contact */
+    0 16px 32px -4px rgba(0, 0, 0, 0.35); /* Penumbra */
+}
+```
+
+---
+
+## 4. Anti-Amateurism Technical Verification Gate (Hard Execution Rules)
+
+Before rendering or shipping code in any engine, verify against these 5 Non-Negotiables:
+
+1. **No Linear Defaults:** Any keyframe with default $33.3\%$ linear ease is rejected. Keyframes must use asymmetric velocities (Minimum **In: 75%–85%**, Out: 0%–15% for explosive impacts).
+2. **Motion Blur Active:** Motion blur is mandatory for all high-velocity translations ($\Delta x > 150\text{px}$ in $<300\text{ms}$).
+3. **Multi-Pass Glow Only:** Single un-feathered glows look amateurish. Glows must combine specular core ($0\text{px}$) with inner saturated bloom and outer ambient dispersion ($120\text{px}$).
+4. **Fluid Edge Choking:** Liquid bodies must combine heavy blur ($\ge 40\text{px}$) with an alpha choking/threshold matrix to create surface tension pinch necks.
+5. **Contact Shadow Snapping:** Floating cards must possess both an ambient occlusion seam ($Z=0\text{px}$) and a soft diffuse penumbra.
+

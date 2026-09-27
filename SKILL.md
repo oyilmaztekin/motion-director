@@ -134,3 +134,5 @@ Before presenting `STORYBOARD.md`, verify all 18 quality gates:
 - [ ] **Production Marker Manifest:** Timeline markers declared for After Effects, Rive, and GSAP handoff.
 - [ ] **Interactive Ergonomics:** Interactive state machines maintain Fitts's Law touch bounds ($44\times 44\text{px}$) and declare ballistic fling decay.
 - [ ] **Cross-Platform & Safe Zones:** Layout complies with Safe Zones across target aspect ratios (16:9 / 9:16 / 1:1) with automatic RTL mirroring when localized.
+- [ ] **Anti-Amateurism VFX Recipes & Curves:** Storyboard references concrete multi-engine VFX recipes (`05-visual-effects.md` §13 / `09-technology-map.md` §3) with asymmetric curve influence ($\ge 75\%-85\%$), multi-pass glow, surface tension alpha choking, and mandatory motion blur.
+
