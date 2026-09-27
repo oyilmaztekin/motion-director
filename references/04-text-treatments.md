@@ -1,15 +1,18 @@
-# 04 Text Treatments, Variable Fonts, Cap-Height Alignment & Kinetic Tracking
+# 04 Text Treatments, Variable Fonts, Kerning Guards & Kinetic Tracking
 
-Text is the primary carrier of direct conceptual meaning. This document defines typographic decomposition, Variable Font axis interpolations, optical cap-height vertical alignment, non-linear stagger falloffs, kinetic tracking breathing, reading economics, and audio synchronization.
+Text is the primary carrier of direct conceptual meaning. This document defines typographic decomposition, Variable Font axis interpolations, optical cap-height vertical alignment, kerning collision guards, non-linear stagger falloffs, kinetic tracking breathing, reading economics, and audio synchronization.
 
 ---
 
-## 1. Optical Cap-Height Alignment (Zero Baseline Hop)
+## 1. Optical Cap-Height Alignment & Kerning Collision Guards
 
-When animating font weight (`wght`), width (`wdth`), or font scale, text can vertically jitter if anchored to arbitrary CSS baselines.
-
+### A. Optical Cap-Height Alignment (Zero Baseline Hop)
 - **`vertical_alignment: cap-height-centered` (Mandatory for Hero Reveals):** Anchors vertical center to the font's capital height box, eliminating baseline hopping during dynamic weight interpolations.
 - **`vertical_alignment: baseline-locked`:** Used for inline text paragraphs to maintain strict typographic grid alignment.
+
+### B. Kinetic Kerning Collision Guard
+- In ultra-fast character staggers (<40ms per glyph), adjacent critical letter pairs (e.g., `AV`, `To`, `WA`) can visually collide during rotation or weight morphing.
+- **`kerning_guard: dynamic-pair-protection`:** Applies temporary optical kerning expansion (+0.02em) between collision-prone pairs during active flight, snapping to true metric kerning upon settle.
 
 ---
 

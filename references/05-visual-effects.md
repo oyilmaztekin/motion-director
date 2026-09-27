@@ -1,6 +1,6 @@
-# 05 Visual Effects, Mask Feathering, Camera Optics & Chromatic Dispersion
+# 05 Visual Effects, Bokeh Iris Geometry, Mask Feathering & Chromatic Optics
 
-This document defines the optical effects layer, 3D depth planes, mask edge feathering, atmospheric Kelvin scattering (depth fog), camera focal lengths, compositing blend modes, and chromatic dispersion.
+This document defines the optical effects layer, 3D depth planes, aperture bokeh blade geometry, mask edge feathering, atmospheric Kelvin scattering (depth fog), camera focal lengths, compositing blend modes, and chromatic dispersion.
 
 ---
 
@@ -12,9 +12,19 @@ This document defines the optical effects layer, 3D depth planes, mask edge feat
 
 ---
 
-## 2. Mask Edge Feathering (Soft vs Hard Inset Clipping)
+## 2. Bokeh Iris Geometry & Aperture Physics
 
-Hard clipping masks can slice typography and imagery abruptly. Use feathered masks for cinematic reveals:
+During depth-of-field rack-focus and out-of-focus blurs, specular highlights render with physical aperture blade geometry:
+
+| Bokeh Token | Optical Shape | Visual Signature | Best Application |
+| :--- | :--- | :--- | :--- |
+| `bokeh-f1.4-circular` | Perfect smooth disc | Ultra-creamy, soft high-end blur | Luxury brand hero sections, portraits |
+| `bokeh-f2.8-hexagonal`| 6-sided faceted polygon | Geometric, technological, crisp | SaaS dashboards, fintech charts |
+| `bokeh-anamorphic` | 2:1 horizontal streak oval | Cinematic Hollywood lens flare character | Video stings, tech launch openers |
+
+---
+
+## 3. Mask Edge Feathering (Soft vs Hard Inset Clipping)
 
 | Feather Token | Gradient Width | Visual Character | Best Application |
 | :--- | :--- | :--- | :--- |
@@ -24,7 +34,7 @@ Hard clipping masks can slice typography and imagery abruptly. Use feathered mas
 
 ---
 
-## 3. Atmospheric Scattering & Kelvin Color Temperature (Depth Fog)
+## 4. Atmospheric Scattering & Kelvin Color Temperature (Depth Fog)
 
 In physical optics, distant planes undergo **Rayleigh Scattering**—shifting toward cooler color temperatures and ambient air tint:
 
@@ -36,7 +46,7 @@ In physical optics, distant planes undergo **Rayleigh Scattering**—shifting to
 
 ---
 
-## 4. Camera Optics, Focal Length & Field of View (FOV)
+## 5. Camera Optics, Focal Length & Field of View (FOV)
 
 | Lens Token | Focal Length / FOV | Visual Character | Best Application |
 | :--- | :--- | :--- | :--- |
@@ -48,7 +58,7 @@ In physical optics, distant planes undergo **Rayleigh Scattering**—shifting to
 
 ---
 
-## 5. Chromatic Dispersion & Refractive Optics
+## 6. Chromatic Dispersion & Refractive Optics
 
 - **Chromatic Aberration (`effects.chromatic-aberration`):** Color fringe splitting (Red/Blue channel offset) on high-contrast edges during high-speed camera motion.
   - `split_offset: micro` (1–2px) for luxury glass; `split_offset: normal` (4–8px) for high-speed impact.
@@ -58,7 +68,7 @@ In physical optics, distant planes undergo **Rayleigh Scattering**—shifting to
 
 ---
 
-## 6. Specular Lighting & Surface Sheen (Light Sweeps)
+## 7. Specular Lighting & Surface Sheen (Light Sweeps)
 
 - **Specular Sweep (`effects.light-sweep`):** A 45° directional light reflection travelling across a glass/metal surface.
   - `background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%)`.
@@ -67,7 +77,7 @@ In physical optics, distant planes undergo **Rayleigh Scattering**—shifting to
 
 ---
 
-## 7. Compositing & Layer Blending Modes (`mix-blend-mode`)
+## 8. Compositing & Layer Blending Modes (`mix-blend-mode`)
 
 - `blend-normal`: Opaque solid UI cards, primary typography.
 - `blend-screen`: Luminous glow, sparks, lens flares (black pixels become transparent).
@@ -77,7 +87,7 @@ In physical optics, distant planes undergo **Rayleigh Scattering**—shifting to
 
 ---
 
-## 8. Motion Blur & Shutter Angle Policy
+## 9. Motion Blur & Shutter Angle Policy
 
 - **`blur-disabled` (Crisp UI, 0° Shutter):** Mandatory for UI micro-interactions, text reading, buttons.
 - **`shutter-180` (Cinematic, 180° Shutter):** Standard motion blur for scene transitions and 3D pans.

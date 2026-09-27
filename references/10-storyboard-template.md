@@ -1,6 +1,6 @@
 # 10 Master Storyboard Template (Hybrid Markdown + YAML)
 
-This document defines the definitive deliverable template produced by `motion-director`. It combines human-readable narrative tables, audio synchronization points, vector seam validation matrices, and a machine-verifiable, engine-agnostic YAML specification.
+This document defines the definitive deliverable template produced by `motion-director`. It combines human-readable narrative tables, audio synchronization points, vector seam validation matrices, timeline marker manifests, and a machine-verifiable, engine-agnostic YAML specification.
 
 ---
 
@@ -19,6 +19,7 @@ This document defines the definitive deliverable template produced by `motion-di
 **Color Space:** OKLCH (Perceptual)
 **Pixel Snapping:** dynamic_integer_lock
 **Lens FOV:** [lens-cine-35 | lens-macro-85 | lens-neutral-50]
+**Bokeh Geometry:** [bokeh-f1.4-circular | bokeh-f2.8-hexagonal | bokeh-anamorphic]
 **Rhythmic Cadence:** [syncopated-burst | polyrhythmic-offset | triplet-accent]
 **Target Formats:** [16:9 widescreen, 9:16 vertical reels, 1:1 square]
 **Signature Move:** [The single memorable kinetic mechanism]
@@ -45,7 +46,7 @@ This document defines the definitive deliverable template produced by `motion-di
 | Beat | Timestamp | Still Composition & Safe Zone | Motion, Atom & Camera | Origin & Path | Blend & Mask | Carrier Across Seam | Audio Cue, Band & Ducking | Hold / Negative Time | Narrative Why |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **01** | `0.0s - 0.6s` | Ground established, Hero headline | `clip-reveal-left` [Settle] + `type.tracking-breath` | `origin-left-center`<br>`direct-axis` | `blend-normal`<br>`feather-soft` | Headline text line | `sfx-whoosh`<br>(mid-snap) | `0.4s hold` | Establish core claim |
-| **02** | `1.0s - 1.8s` | Data card emerges (Midground) | `slide-in-up` [Anticipation] + `camera.dolly-in` | `origin-bottom-center`<br>`arc-convex` | `effects.light-sweep`<br>`blend-overlay` | Card border | `sfx-riser`<br>(high-air) | `0.6s hold` | Evidence payload |
+| **02** | `1.0s - 1.8s` | Data card emerges (Midground) | `slide-in-up` [Anticipation] + `camera.dolly-in` | `origin-bottom-center`<br>`arc-convex (G2)` | `effects.light-sweep`<br>`blend-overlay` | Card border | `sfx-riser`<br>(high-air) | `0.6s hold` | Evidence payload |
 | **03** | `2.4s - 3.2s` | Metric counts to 99% + Burst | `counter-up` + `physics.momentum-transfer` | `origin-center`<br>`volume-preserve` | `blend-screen`<br>`depth-fog-cool` | Signal accent ring | `sfx-sub`<br>(low-sub, -6dB duck) | `0.8s hold` | Climax payoff |
 
 ---
@@ -59,7 +60,19 @@ This document defines the definitive deliverable template produced by `motion-di
 
 ---
 
-## 4. Timeline Overview (ASCII)
+## 4. Timeline Markers & Production Handoff Manifest
+
+| Marker Name | Timestamp | Trigger Type | AE Comp Marker | Rive Input Trigger | GSAP Label |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `M_INTRO_START` | `0.0s` | Auto Scene Ignition | `Intro_Start` | `trig_start` | `introStart` |
+| `M_HEADLINE_LOCK` | `0.6s` | Audio Hit / Tracking Lock | `Headline_Lock` | `state_headline_locked` | `headlineLock` |
+| `M_DATA_REVEAL` | `1.0s` | Card Dolly & Light Sweep | `Data_Reveal` | `trig_data_reveal` | `dataReveal` |
+| `M_CLIMAX_BURST` | `2.4s` | Sub-Bass Hit / Ducking | `Climax_Burst` | `trig_climax` | `climaxBurst` |
+| `M_FINAL_SETTLE` | `3.2s` | Complete Rest Hold | `Final_Settle` | `state_settled` | `finalSettle` |
+
+---
+
+## 5. Timeline Overview (ASCII)
 
 ```text
 [0.0s] ───|-- ground/bg (continuous) ----------------------------------->|
@@ -71,7 +84,7 @@ This document defines the definitive deliverable template produced by `motion-di
 
 ---
 
-## 5. Master Specification (Strict Engine-Agnostic YAML)
+## 6. Master Specification (Strict Engine-Agnostic YAML)
 
 ```yaml
 meta:
@@ -86,6 +99,7 @@ meta:
   color_space: "oklch"
   pixel_snapping: "dynamic_integer_lock"
   lens_fov: "lens-cine-35"
+  bokeh_iris: "bokeh-f1.4-circular"
   primary_matter: "Type"
   formats: ["16:9", "9:16"]
   density_budget: { max_high_energy: 1, max_secondary: 2 }
@@ -113,6 +127,7 @@ layers:
     transform_origin: "origin-left-center"
     vertical_alignment: "cap-height-centered"
     spatial_path: "direct-axis"
+    path_continuity: "G2-smooth"
     blend_mode: "blend-normal"
     mask_feather: "feather-soft"
     motion_blur: "blur-disabled"
@@ -129,6 +144,7 @@ layers:
       level: "line"
       stagger: { type: "from-start", amount: 60ms, curve: "stagger-exponential" }
       variable_font: { axis: "wght", from: 300, to: 800 }
+      kerning_guard: "dynamic-pair-protection"
       tracking_breath: { in_flight: "0.06em", at_rest: "-0.02em" }
     audio_cue:
       type: "whoosh"
@@ -146,6 +162,7 @@ layers:
     matter: "Data"
     transform_origin: "origin-bottom-center"
     spatial_path: "arc-convex"
+    path_continuity: "G2-smooth"
     blend_mode: "blend-overlay"
     motion_blur: "shutter-180"
     atom: "entrance.slide-in-up"
@@ -168,9 +185,11 @@ layers:
       duration: "fast"
     physics:
       momentum_transfer: { target: "div.adjacent-badge", recoil: "-6px" }
+      hysteresis_damping: "natural-asymmetric"
     camera:
       dolly_z: { from: 0, to: "40px" }
       fov: "lens-cine-35"
+      bokeh: "bokeh-f1.4-circular"
     carrier:
       element: "div.metric-card"
       target_slot: "next-scene-dock"

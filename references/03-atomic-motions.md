@@ -8,9 +8,10 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 - **Single Anchor Law:** Only ONE primary atom in a scene carries maximum energy.
 - **Anticipation & Volume Conservation:** Atoms marked `[Anticipation]` execute a 50–100ms micro-recoil with volume preservation ($\text{scaleX} \times \text{scaleY} \approx 1.0$).
+- **Viscous Hysteresis:** Spring oscillations dissipate asymmetrically (60% → 20% → 3% → lock).
 - **Momentum Transfer & Elastic Restitution:** High-mass impacts transfer energy to adjacent low-mass elements, causing a proportional secondary recoil ($m_1 v_1 = m_2 v_2$).
 - **Settle Integration:** Atoms marked `[Settle]` execute a 100–200ms damped deceleration into rest.
-- **Spatial Trajectory:** Diagonal and multi-axis transitions follow `arc-convex` or `arc-concave` paths by default.
+- **G2 Curvature Continuity:** Trajectories follow natural gravitational curves (`arc-convex` or `arc-concave`) with continuous acceleration derivative across bezier joins.
 - **Transform Origin Declaration:** Every scaling/rotating atom must declare its origin (`origin-center`, `origin-bottom-center`, etc.).
 - **Vector Morph Topology:** Morph atoms declare path topology (`matched_vertices` or `geometric_unfold`) to prevent self-intersections.
 - **Max Atoms Per Element:** No single element may combine more than 3 simultaneous atoms.
@@ -27,7 +28,7 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 | `slide-in-down` | Downward slide into position | `translateY: calc(-1 * var(--spatial-normal)) → 0`, `opacity: 0 → 1` | `normal` | `ease-out-expo` | `fade-in` | Low |
 | `slide-in-left` | Leftward slide along the Current | `translateX: var(--spatial-large) → 0`, `opacity: 0 → 1` | `normal` | `ease-out-expo` | `fade-in` | Low |
 | `scale-up` [Anticipation] | Scales up with volume preservation | `scale: (0.85, 0.85) → (1.0, 1.0)`, `opacity: 0 → 1` | `normal` | `spring-gentle` | `fade-in` | Low |
-| `arc-fly-in` [Anticipation] | Enters along a convex trajectory | `x, y: path(arc-convex)`, `opacity: 0 → 1` | `slow` | `ease-out-expo` | `fade-in` | Med |
+| `arc-fly-in` [Anticipation] | Enters along a G2-smooth convex path | `x, y: path(arc-convex, G2)`, `opacity: 0 → 1` | `slow` | `ease-out-expo` | `fade-in` | Med |
 | `clip-reveal-up` | Cinematic reveal from clip mask | `clip-path: inset(100% 0 0 0) → inset(0)` | `slow` | `ease-out-expo` | `fade-in` | Med |
 | `clip-reveal-left` | Reveal along the Current axis | `clip-path: inset(0 100% 0 0) → inset(0)` | `slow` | `ease-out-expo` | `fade-in` | Med |
 | `split-reveal-h` | Unfurls from horizontal center | `clip-path: inset(0 50% 0 50%) → inset(0)` | `slow` | `ease-out-expo` | `fade-in` | Med |
@@ -44,6 +45,7 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `physics.momentum-transfer` | Heavy hero impact launches adjacent micro-elements | `recoilY: -8px → 0px`, `mass_ratio: 0.2` | `fast` | `spring-snappy` | Low |
 | `physics.elastic-restitution`| Surface rebound based on elasticity ($e = 0.75$) | `translateY: impact → recoil → rest` | `fast` | `spring-bouncy` | Low |
+| `physics.hysteresis-settle` | Viscous asymmetric oscillation dampening | `dissipation: [0.60, 0.20, 0.03, 0]` | `normal` | `spring-gentle` | Low |
 
 ---
 

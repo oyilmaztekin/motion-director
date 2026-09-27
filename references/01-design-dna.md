@@ -1,4 +1,4 @@
-# 01 Design DNA, Physics Laws, Perceptual Color & Pixel Snapping
+# 01 Design DNA, Physics Laws, Perceptual Color & Viscous Hysteresis
 
 This document establishes the foundation of the project's motion identity, matter composition, perceptual color interpolation, pixel snapping standards, physics laws, driver models, spatial origin standards, and motion density budgets. All scene specifications and storyboards must reference the tokens and rules defined here.
 
@@ -25,14 +25,17 @@ Every animated scene produced by `motion-director` must satisfy these foundation
    - Major actions must be preceded by a micro counter-momentum or compression.
    - **Conservation of Volume:** When an object compresses or stretches, its 2D area/volume must remain constant:
      $$\text{scaleX} \times \text{scaleY} \approx 1.0$$
-6. **Spatial Arcs:**
-   - Organic motion never travels along robotic diagonal vectors. Trajectories follow natural gravitational/momentum curves (`arc-convex` or `arc-concave`). Linear paths (`direct-axis`) are reserved for rigid mechanical UI rails.
-7. **Asymmetric Easing:**
+6. **Viscous Hysteresis & Asymmetric Spring Dissipation:**
+   - Physical mass does not oscillate symmetrically. Energy dissipates through asymmetric viscous damping:
+     $$\text{Overshoot } (60\%) \longrightarrow \text{Rebound } (20\%) \longrightarrow \text{Micro-Settle } (3\%) \longrightarrow \text{Locked Rest}$$
+7. **Spatial Arcs & G2 Curvature Continuity:**
+   - Organic motion never travels along robotic diagonal vectors. Trajectories follow natural gravitational curves (`arc-convex` or `arc-concave`) with **G2 Curvature Continuity** (continuous acceleration derivative across path joins, zero radial jerk).
+8. **Asymmetric Easing:**
    - `linear` interpolation is banned except for infinite ambient cycles or raw progress bars.
    - Organic motion requires asymmetric curves: aggressive acceleration (`ease-in`) paired with a long, gentle deceleration/settle (`ease-out`), or mass-damped springs.
-8. **Follow-Through & Overlapping Action:**
+9. **Follow-Through & Overlapping Action:**
    - Elements never lock into place on the exact same frame. Secondary layers, attached badges, shadows, and text settle with a 50–150ms delay/offset relative to the primary hero.
-9. **Settle & Negative Time:**
+10. **Settle & Negative Time:**
    - Elements do not hit target values like a brick wall; they decelerate smoothly into a rest state (`decay`).
    - Every completed action must include intentional negative time (**0.3s – 0.8s hold**) allowing the viewer to absorb the message before the next beat begins.
 
@@ -112,7 +115,7 @@ Pick **ONE primary matter**. A second matter may exist only as support. Three is
 
 ### C. Spatial & Path Tokens
 `micro` (2–4px) · `small` (8–12px) · `normal` (16–24px) · `large` (32–48px) · `dramatic` (64–100px) · `viewport` (100vh/100vw)
-Paths: `arc-convex`, `arc-concave`, `direct-axis`.
+Paths: `arc-convex`, `arc-concave`, `direct-axis` (with G2 continuity).
 
 ### D. Audio & Sonic Hit Tokens
 `sfx-sub` (bass hit) · `sfx-click` (crisp tick) · `sfx-whoosh` (air transit) · `sfx-swell` (tension riser) · `sfx-chime` (resolve)
