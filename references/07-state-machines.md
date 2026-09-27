@@ -20,7 +20,8 @@ Specify the control driver for every interactive section:
 ### C. Gesture & Velocity-Driven (`driver: velocity_gesture`)
 - Direct touch/pointer dragging with momentum fling.
 - **`rubber_band_factor`:** Resistance when dragged past boundaries (`0.15`).
-- **`fling_decay`:** Exponential deceleration curve upon release.
+- **`fling_decay`:** Exponential deceleration curve upon release based on release velocity $\vec{v}_{\text{fling}} = \frac{\Delta x}{\Delta t}$ with kinematic friction coefficient ($\mu = 0.92$).
+- **`hit_cushion_guard`:** Interactive elements must preserve minimum $44 \times 44\text{px}$ touch target bounds even during `scale: 0.96` compression states (Fitts's Law compliance).
 
 ---
 

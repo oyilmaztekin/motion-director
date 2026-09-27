@@ -14,6 +14,10 @@ Text is the primary carrier of direct conceptual meaning. This document defines 
 - In ultra-fast character staggers (<40ms per glyph), adjacent critical letter pairs (e.g., `AV`, `To`, `WA`) can visually collide during rotation or weight morphing.
 - **`kerning_guard: dynamic-pair-protection`:** Applies temporary optical kerning expansion (+0.02em) between collision-prone pairs during active flight, snapping to true metric kerning upon settle.
 
+### C. Optical Mask Padding (Ascender/Descender Anti-Clipping)
+- When utilizing line-split `overflow: hidden` or `clip-path` masks, typographic tails and accents can be artificially truncated.
+- **`mask_optical_padding`:** Always allocate `{ top: 0.15em, bottom: 0.25em }` vertical clearance to preserve descenders (`g`, `j`, `p`, `q`, `y`) and tall ascenders/diacritics (`Å`, `Ö`, `d`, `h`, `t`).
+
 ---
 
 ## 2. Variable Font Axis Morphing & Tracking Kinetics

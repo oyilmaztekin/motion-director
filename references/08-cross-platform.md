@@ -46,8 +46,9 @@ Modern motion design requires multi-format planning:
 
 ---
 
-## 4. Performance & GPU Budgets
+## 4. Performance, Compositor Isolation & GPU Budgets
 
-- **Hardware Acceleration:** Only animate composite-friendly properties (`transform`, `opacity`, `filter: blur` sparingly, and `clip-path`).
-- **Never Animate Layout Properties:** Avoid animating `top`, `left`, `width`, `height`, `margin`, or `padding` directly during high-frame-rate sequences.
-- **Max Concurrent Tweens:** Limit simultaneous active layer animations to **≤ 6** to prevent frame drops on mobile devices.
+- **Hardware Acceleration (Composite-Only):** Only animate composite-friendly properties (`transform: translate3d/scale/rotate`, `opacity`, `filter: blur` sparingly, and `clip-path`).
+- **Layout Thrashing Guard:** Never animate geometry-reflowing properties (`top`, `left`, `width`, `height`, `margin`, `padding`) during high-frame-rate sequences.
+- **Compositor Lifecycle Isolation:** Promote active layers via `will-change: transform, opacity` at animation ignition, and remove promotion on final settle hold to release GPU memory.
+- **Max Concurrent Tweens:** Limit simultaneous active layer animations to **≤ 6** on desktop and **≤ 3** on mobile to guarantee silky 60fps / 120fps ProMotion execution.
