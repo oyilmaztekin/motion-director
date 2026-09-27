@@ -1,0 +1,53 @@
+# 08 Cross-Platform Adaptation, Aspect Ratios & Accessibility (A11y)
+
+Motion design must remain accessible, performant, and responsive across diverse viewports, social platforms, and user preferences.
+
+---
+
+## 1. Multi-Aspect Ratio & Safe Zone Standards
+
+Modern motion design requires multi-format planning:
+
+| Format | Aspect Ratio | Target Canvas | Safe Zone Rules |
+| :--- | :--- | :--- | :--- |
+| **Widescreen** | `16:9` (`1920x1080`) | Desktop Web, YouTube, Keynotes | 10% outer margin for text and focal anchors. |
+| **Vertical** | `9:16` (`1080x1920`) | Reels, TikTok, Shorts, Mobile Stories | Avoid top 12% (header) and bottom 22% (captions/UI buttons). |
+| **Square / Feed** | `1:1` (`1080x1080`) | Social Feeds, Instagram Post | Centered framing with 8% outer margin. |
+| **Social Portrait**| `4:5` (`1080x1350`) | In-feed Mobile Video | 10% top/bottom margin. |
+
+**Safe Zone Rule:** The focal anchor and core typographic message must remain strictly inside the Safe Zone across all target aspect ratios.
+
+---
+
+## 2. Mandatory Reduced Motion Compliance (WCAG 2.2 AAA)
+
+**Rule:** Every single animated layer in `motion-director` MUST declare a `reduced_motion` fallback specification.
+
+### Fallback Matrix:
+| Standard Motion Atom | Reduced Motion Fallback | Rationale |
+| :--- | :--- | :--- |
+| `slide-in-*` / `parallax` | `fade-in` (`fast`) | Eliminates vestibular trigger from spatial movement. |
+| `scale-up` / `zoom-through`| `fade-in` (`instant` / `fast`) | Eliminates motion sickness from depth zoom. |
+| `rotate-in` / `page-flip` | `fade-in` (`fast`) | Eliminates disorientation from 3D tumbling. |
+| `glow-pulse` / `shake-x` | Static border / highlight | Eliminates seizure/distraction triggers. |
+| `typewriter-in` / `counter`| Instant final text/number | Eliminates visual flicker. |
+
+---
+
+## 3. Desktop vs Mobile Responsive Rules
+
+1. **Spatial Scale Reduction:**
+   - Desktop `translateY: 32px` → Mobile `translateY: 12px`.
+   - Large hero travels on mobile cause overflow and visual distortion.
+2. **Hover Substitution:**
+   - On touch devices, `hover` state transitions are omitted or converted to direct tap feedback (`pressed`).
+3. **Reduced Stagger Count:**
+   - Cap staggered items on mobile to a maximum of **6 elements** (vs 12 on desktop) to prevent sluggish loading.
+
+---
+
+## 4. Performance & GPU Budgets
+
+- **Hardware Acceleration:** Only animate composite-friendly properties (`transform`, `opacity`, `filter: blur` sparingly, and `clip-path`).
+- **Never Animate Layout Properties:** Avoid animating `top`, `left`, `width`, `height`, `margin`, or `padding` directly during high-frame-rate sequences.
+- **Max Concurrent Tweens:** Limit simultaneous active layer animations to **≤ 6** to prevent frame drops on mobile devices.
