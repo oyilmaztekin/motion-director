@@ -7,8 +7,10 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 ## 1. Composition Rules for Atoms
 
 - **Single Anchor Law:** Only ONE primary atom in a scene carries maximum energy.
-- **Anticipation Integration:** Atoms marked `[Anticipation]` execute a 50–100ms micro-recoil before main travel.
+- **Anticipation & Volume Conservation:** Atoms marked `[Anticipation]` execute a 50–100ms micro-recoil with volume preservation ($\text{scaleX} \times \text{scaleY} \approx 1.0$).
 - **Settle Integration:** Atoms marked `[Settle]` execute a 100–200ms damped deceleration into rest.
+- **Spatial Trajectory:** Diagonal and multi-axis transitions follow `arc-convex` or `arc-concave` paths by default.
+- **Transform Origin Declaration:** Every scaling/rotating atom must declare its origin (`origin-center`, `origin-bottom-center`, etc.).
 - **Max Atoms Per Element:** No single element may combine more than 3 simultaneous atoms.
 - **Entrance & Exit Exclusivity:** An element cannot execute an entrance atom and an exit atom simultaneously.
 
@@ -22,7 +24,8 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 | `slide-in-up` [Settle] | Upward slide with organic settle | `translateY: var(--spatial-normal) → 0`, `opacity: 0 → 1` | `normal` | `ease-out-expo` | `fade-in` | Low |
 | `slide-in-down` | Downward slide into position | `translateY: calc(-1 * var(--spatial-normal)) → 0`, `opacity: 0 → 1` | `normal` | `ease-out-expo` | `fade-in` | Low |
 | `slide-in-left` | Leftward slide along the Current | `translateX: var(--spatial-large) → 0`, `opacity: 0 → 1` | `normal` | `ease-out-expo` | `fade-in` | Low |
-| `scale-up` [Anticipation] | Scales from small with micro-pullback | `scale: 0.85 → 1.0`, `opacity: 0 → 1` | `normal` | `spring-gentle` | `fade-in` | Low |
+| `scale-up` [Anticipation] | Scales up with volume preservation | `scale: (0.85, 0.85) → (1.0, 1.0)`, `opacity: 0 → 1` | `normal` | `spring-gentle` | `fade-in` | Low |
+| `arc-fly-in` [Anticipation] | Enters along a convex trajectory | `x, y: path(arc-convex)`, `opacity: 0 → 1` | `slow` | `ease-out-expo` | `fade-in` | Med |
 | `clip-reveal-up` | Cinematic reveal from clip mask | `clip-path: inset(100% 0 0 0) → inset(0)` | `slow` | `ease-out-expo` | `fade-in` | Med |
 | `clip-reveal-left` | Reveal along the Current axis | `clip-path: inset(0 100% 0 0) → inset(0)` | `slow` | `ease-out-expo` | `fade-in` | Med |
 | `split-reveal-h` | Unfurls from horizontal center | `clip-path: inset(0 50% 0 50%) → inset(0)` | `slow` | `ease-out-expo` | `fade-in` | Med |
@@ -54,10 +57,11 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 5. Emphasis Atoms (Active in-scene focal moments)
+## 5. Emphasis & Squash Atoms (Active in-scene focal moments)
 
 | Atom Name | Description | Key Properties | Default Duration | Default Easing | Reduced Motion Fallback | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `squash-impact` | Volume-conserved landing impact | `scaleY: 0.78, scaleX: 1.28 → (1.0, 1.0)` | `fast` | `spring-snappy` | None | Low |
 | `scale-pop` [Anticipation] | Tactile punch with settle | `scale: 1.0 → 1.08 → 1.0` | `fast` | `spring-snappy` | Static highlight | Low |
 | `glow-pulse` | Luminous accent breathing | `box-shadow` or `filter: drop-shadow` | `slow` | `ease-in-out-cubic`| Static outline | High |
 | `ring-expand` | Radial ripple emanating outward | `scale: 1.0 → 1.4`, `opacity: 0.8 → 0` | `normal` | `ease-out-cubic` | None | Med |

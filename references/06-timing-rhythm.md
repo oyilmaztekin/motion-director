@@ -1,10 +1,21 @@
 # 06 Timing, Rhythm, Audio Sync & Seam Continuity
 
-This document establishes the timing architecture, audio/SFX hit point synchronization, seam continuity laws (cross-scene cuts), and sustained motion rules.
+This document establishes the timing architecture, audio/SFX hit point synchronization, seam continuity laws (cross-scene cuts), sustained motion rules, and loop seam physics.
 
 ---
 
-## 1. Audio & Sonic Hit Synchronization (Sonic Motion)
+## 1. Seamless Loop Physics (The Zero-Velocity Hitch Law)
+
+For `Piece Type: Loop` (e.g., ambient hero backgrounds, continuous loaders, Rive state loops), the loop boundary must be mathematically imperceptible:
+
+$$\vec{v}_{\text{exit}}(\text{Frame } N) = \vec{v}_{\text{entry}}(\text{Frame } 0)$$
+
+1. **Velocity Derivative Continuity:** The motion must not decelerate to zero and restart abruptly at the loop seam unless it represents an intentional stop-and-go cycle.
+2. **Phase Boundary Matching:** Property values at `t = 0.0s` and `t = total_duration` must be identical, with the easing curve slope matched across the boundary.
+
+---
+
+## 2. Audio & Sonic Hit Synchronization (Sonic Motion)
 
 Sound and vision are co-dependent: audio provides weight and tactical clarity to visual keyframes.
 
@@ -20,7 +31,7 @@ Sound and vision are co-dependent: audio provides weight and tactical clarity to
 
 ---
 
-## 2. The Seam Law & Continuity (Inter-Scene Transitions)
+## 3. The Seam Law & Continuity (Inter-Scene Transitions)
 
 A multi-scene animation must feel like **ONE continuous flow**, not a disconnected stack of slides.
 
@@ -46,7 +57,7 @@ Chain movements so each action visibly triggers the next:
 
 ---
 
-## 3. No Idle Wobble & Sustained Motion Routes
+## 4. No Idle Wobble & Sustained Motion Routes
 
 Idle sine wave loops (breathe, float, drift, pulsing glow to fill time) are **STRICTLY BANNED** as sustained motion. They signal to the viewer that the animation has stalled.
 
@@ -62,7 +73,7 @@ Every duration between entrance and exit must be assigned one of these **Sustain
 
 ---
 
-## 4. Orchestration Modes
+## 5. Orchestration Modes
 
 1. **Sequential:** Unit B starts only when Unit A completes (`delayB = delayA + durationA`).
 2. **Overlapping (Standard):** Unit B starts when Unit A is at **60–70% completion**.
@@ -71,7 +82,7 @@ Every duration between entrance and exit must be assigned one of these **Sustain
 
 ---
 
-## 5. Tempo Classifications
+## 6. Tempo Classifications
 
 | Tempo | Character | Duration Scale | Stagger Scale | Target Application |
 | :--- | :--- | :--- | :--- | :--- |
@@ -83,7 +94,7 @@ Every duration between entrance and exit must be assigned one of these **Sustain
 
 ---
 
-## 6. Stillness Before Climax (The Dramatic Comma)
+## 7. Stillness Before Climax (The Dramatic Comma)
 
 Before any major climax, transformation, or punchline, insert a **0.3s – 0.75s deliberate pause**.
 This stillness creates anticipation, focuses the viewer's gaze, and amplifies the impact of the payoff.

@@ -38,11 +38,11 @@ This document defines the definitive deliverable template produced by `motion-di
 
 ## 2. Beat-by-Beat Choreography & Sonic Table
 
-| Beat | Timestamp | Still Composition & Safe Zone | Motion, Atom & Camera | Carrier Across Seam | Audio / SFX Cue | Hold / Negative Time | Narrative Why |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **01** | `0.0s - 0.6s` | Ground established, Hero headline | `clip-reveal-left` [Settle] | Headline text line | `sfx-whoosh` (air rush) | `0.4s hold` | Establish core claim |
-| **02** | `1.0s - 1.8s` | Data card emerges (Midground) | `slide-in-up` [Anticipation] + `camera.dolly-in` | Card border | `sfx-riser` (tension) | `0.6s hold` | Evidence payload |
-| **03** | `2.4s - 3.2s` | Metric counts to 99% + Weight morph | `counter-up` + `type.weight-morph` | Signal accent ring | `sfx-sub` (bass hit) | `0.8s hold` | Climax payoff |
+| Beat | Timestamp | Still Composition & Safe Zone | Motion, Atom & Camera | Origin & Path | Carrier Across Seam | Audio / SFX Cue | Hold / Negative Time | Narrative Why |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **01** | `0.0s - 0.6s` | Ground established, Hero headline | `clip-reveal-left` [Settle] | `origin-left-center`<br>`direct-axis` | Headline text line | `sfx-whoosh` (air rush) | `0.4s hold` | Establish core claim |
+| **02** | `1.0s - 1.8s` | Data card emerges (Midground) | `slide-in-up` [Anticipation] + `camera.dolly-in` | `origin-bottom-center`<br>`arc-convex` | Card border | `sfx-riser` (tension) | `0.6s hold` | Evidence payload |
+| **03** | `2.4s - 3.2s` | Metric counts to 99% + Squash impact | `counter-up` + `squash-impact` | `origin-center`<br>`volume-preserve` | Signal accent ring | `sfx-sub` (bass hit) | `0.8s hold` | Climax payoff |
 
 ---
 
@@ -92,6 +92,9 @@ layers:
     z: 10
     depth_plane: "midground"
     matter: "Type"
+    transform_origin: "origin-left-center"
+    spatial_path: "direct-axis"
+    motion_blur: "blur-disabled"
     atom: "entrance.clip-reveal-left"
     timing:
       delay: 0ms
@@ -118,6 +121,9 @@ layers:
     z: 20
     depth_plane: "midground"
     matter: "Data"
+    transform_origin: "origin-bottom-center"
+    spatial_path: "arc-convex"
+    motion_blur: "shutter-180"
     atom: "entrance.slide-in-up"
     timing:
       delay: 1000ms
@@ -127,6 +133,9 @@ layers:
     properties:
       translateY: { from: "var(--spatial-large)", to: "0px" }
       opacity: { from: 0, to: 1 }
+    anticipation:
+      recoil: { translateY: "4px", scaleY: 0.95, scaleX: 1.05 } # Volume preserved
+      duration: "fast"
     camera:
       dolly_z: { from: 0, to: "40px" }
     carrier:

@@ -1,32 +1,50 @@
 # 01 Design DNA & Core Motion Laws
 
-This document establishes the foundation of the project's motion identity, matter composition, color permissions, physics laws, and driver models. All scene specifications and storyboards must reference the tokens and rules defined here.
+This document establishes the foundation of the project's motion identity, matter composition, color permissions, physics laws, driver models, and spatial origin standards. All scene specifications and storyboards must reference the tokens and rules defined here.
 
 ---
 
-## 1. The 5 Mandatory Motion Laws
+## 1. The Core Motion & Physics Laws
 
-Every animated scene produced by `motion-director` must satisfy these 5 foundational laws:
+Every animated scene produced by `motion-director` must satisfy these foundational laws:
 
 1. **Staging & Single Focal Anchor (Tek Odak):**
    - Every frame has exactly ONE primary focal point (anchor). Visual hierarchy, secondary elements, and camera framing exist solely to guide the eye toward it.
    - Simultaneous competing high-energy actions are strictly forbidden (prevents cognitive overload).
-2. **Anticipation (Hazırlık & Kütle Hissi):**
-   - Major actions must be preceded by a micro counter-momentum or compression (e.g., 3–5% pullback or squeeze before launching forward) to convey physical mass.
-3. **Asymmetric Easing (Asimetrik Eğriler):**
+2. **Anticipation & Volume Conservation (Squash & Stretch Hacim Yasası):**
+   - Major actions must be preceded by a micro counter-momentum or compression.
+   - **Conservation of Volume:** When an object compresses or stretches, its 2D area/volume must remain constant:
+     $$\text{scaleX} \times \text{scaleY} \approx 1.0$$
+     *(Example: A 20% vertical squash `scaleY: 0.80` mandates an horizontal stretch `scaleX: 1.25` so the object does not lose perceived physical mass).*
+3. **Spatial Arcs (Kavisli Yörüngeler):**
+   - Organic motion never travels along robotic diagonal vectors. Trajectories follow natural gravitational/momentum curves (`arc-convex` or `arc-concave`). Linear paths (`direct-axis`) are reserved for rigid mechanical UI rails.
+4. **Asymmetric Easing (Asimetrik Eğriler):**
    - `linear` interpolation is banned except for infinite ambient cycles or raw progress bars.
    - Organic motion requires asymmetric curves: aggressive acceleration (`ease-in`) paired with a long, gentle deceleration/settle (`ease-out`), or mass-damped springs.
-4. **Follow-Through & Overlapping Action (Kademeli Tamamlanma):**
+5. **Follow-Through & Overlapping Action (Kademeli Tamamlanma):**
    - Elements never lock into place on the exact same frame. Secondary layers, attached badges, shadows, and text settle with a 50–150ms delay/offset relative to the primary hero.
-5. **Settle & Negative Time (Sindirme & Dinlenme):**
+6. **Settle & Negative Time (Sindirme & Dinlenme):**
    - Elements do not hit target values like a brick wall; they decelerate smoothly into a rest state (`decay`).
    - Every completed action must include intentional negative time (**0.3s – 0.8s hold**) allowing the viewer to absorb the message before the next beat begins.
 
 ---
 
-## 2. Interaction & Driver Models
+## 2. Transform Origin Standard Library (Eksen Noktası)
 
-Animations are driven by one of three core mechanisms:
+Every scaling, rotating, or morphing element MUST declare its transform anchor point:
+
+| Token | Coordinates | Typical Use Case |
+| :--- | :--- | :--- |
+| `origin-center` | `50% 50%` | Radial scale-pops, circular loaders, floating icons |
+| `origin-top-left` | `0% 0%` | Dropdown unfurls, corner badges, accordion reveals |
+| `origin-top-center` | `50% 0%` | Hanging signboards, 3D flip-downs, vertical curtains |
+| `origin-bottom-center`| `50% 100%` | Bar chart growth, jump anticipation, ground-anchored cards |
+| `origin-left-center` | `0% 50%` | Progress bars, book-fold reveals, line stroke draws |
+| `origin-custom` | `(x, y)` | Focal points tied to exact cursor click or anchor coordinates |
+
+---
+
+## 3. Interaction & Driver Models
 
 | Driver Model | Control Mechanism | Progression Metric | Application |
 | :--- | :--- | :--- | :--- |
@@ -36,7 +54,7 @@ Animations are driven by one of three core mechanisms:
 
 ---
 
-## 3. Matter Taxonomy (What the piece is made of)
+## 4. Matter Taxonomy (What the piece is made of)
 
 Pick **ONE primary matter**. A second matter may exist only as support. Three is a showreel—refuse it.
 
@@ -50,9 +68,7 @@ Pick **ONE primary matter**. A second matter may exist only as support. Three is
 
 ---
 
-## 4. Color Roles & Motion Permissions
-
-Every color hex must have an assigned job. Color tells the narrative:
+## 5. Color Roles & Motion Permissions
 
 | Role | Job | Motion Permission |
 | :--- | :--- | :--- |
@@ -65,9 +81,7 @@ Every color hex must have an assigned job. Color tells the narrative:
 
 ---
 
-## 5. Token Standard Library
-
-Always reference named tokens. Never use raw magic numbers in storyboards.
+## 6. Token Standard Library
 
 ### A. Duration Tokens
 | Token | Duration | Usage |
@@ -92,13 +106,9 @@ Always reference named tokens. Never use raw magic numbers in storyboards.
 | `spring-heavy` | `{ mass: 2.5, stiffness: 80, damping: 12 }` | Heavy containers, card stacks, modals |
 | `linear` | `linear` | Ambient continuous loops and timers only |
 
-### C. Spatial Tokens
-- `micro`: 2–4px (Focus indicators, subtle elevation)
-- `small`: 8–12px (Hover lift, button press)
-- `normal`: 16–24px (Standard card/text reveal)
-- `large`: 32–48px (Section-level entrance)
-- `dramatic`: 64–100px (Hero entrance, viewpoint push)
-- `viewport`: 100vh / 100vw (Full scene transitions)
+### C. Spatial & Path Tokens
+- `micro`: 2–4px | `small`: 8–12px | `normal`: 16–24px | `large`: 32–48px | `dramatic`: 64–100px | `viewport`: 100vh / 100vw
+- **Paths:** `arc-convex` (upward arc), `arc-concave` (scooping arc), `direct-axis` (straight line).
 
 ### D. Audio & Sonic Hit Tokens
 - `sfx-sub`: Low-frequency sub-bass impact (climax hit, hero arrival)
@@ -106,16 +116,3 @@ Always reference named tokens. Never use raw magic numbers in storyboards.
 - `sfx-whoosh`: Directional air rush (seam cut, fast transit along Current)
 - `sfx-swell`: Rising tension tonal sweep (anticipation before payoff)
 - `sfx-chime`: High-frequency positive resolution (success, unlock)
-
----
-
-## 6. Personality Constraints Template
-
-```yaml
-constraints:
-  forbidden_easings: [ease-in-out-back, bounce.out]
-  forbidden_atoms: [idle-wobble, random-drift, rainbow-flash]
-  max_concurrent_tweens: 5
-  max_stagger_elements: 10
-  forced_reduced_motion_compliance: true
-```

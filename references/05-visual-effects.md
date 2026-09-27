@@ -1,6 +1,6 @@
-# 05 Visual Effects, Depth Planes & Camera Spatial System
+# 05 Visual Effects, Depth Planes & Shutter Motion Blur
 
-This document defines the optical effects layer, 3D depth plane parallax systems, camera coordinates, and the constraints needed to keep visual clarity intact.
+This document defines the optical effects layer, 3D depth plane parallax systems, camera coordinates, and motion blur / shutter angle rules.
 
 ---
 
@@ -12,7 +12,19 @@ This document defines the optical effects layer, 3D depth plane parallax systems
 
 ---
 
-## 2. 3D Depth Planes & Parallax Ratios
+## 2. Motion Blur & Shutter Angle Policy
+
+High-speed movement requires deliberate optical blur settings to balance sharpness with fluidity:
+
+| Token | Shutter Angle | Application Rule |
+| :--- | :--- | :--- |
+| **`blur-disabled` (Crisp UI)** | `0°` | **Mandatory for UI micro-interactions**, typography reading, buttons, cards. Zero blur preserves crisp vector borders. |
+| **`shutter-180` (Cinematic)** | `180°` | Standard cinematic motion blur for rapid scene wipes, camera pans, and flying 3D elements. |
+| **`shutter-360` (Hyper-Speed)** | `360°` | Extreme speed streaks during `zoom-through` or warp transitions. |
+
+---
+
+## 3. 3D Depth Planes & Parallax Ratios
 
 When constructing layered spatial compositions, assign every layer to a canonical depth plane:
 
@@ -24,7 +36,7 @@ When constructing layered spatial compositions, assign every layer to a canonica
 
 ---
 
-## 3. Camera Transforms & Cinematic Moves
+## 4. Camera Transforms & Cinematic Moves
 
 The camera represents the viewer's eye moving through 3D space:
 
@@ -34,7 +46,7 @@ The camera represents the viewer's eye moving through 3D space:
 
 ---
 
-## 4. Visual Effects Specification
+## 5. Visual Effects Specification
 
 ### A. Shadow & Elevation (Depth Layering)
 | Token | Properties | Usage |
