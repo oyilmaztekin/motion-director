@@ -66,6 +66,8 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 | `effects.light-sweep` | 45° metallic sheen across surface | `background-position: -200% → 200%`, `angle: 135deg` | `normal` | `ease-out-expo` | Med |
 | `effects.vector-trail` | Decaying multi-frame ghosting silhouette | `trail_count: 3`, `decay: 0.35`, `delay: 16ms` | `fast` | `ease-out-expo` | High |
 | `effects.glow-flare` | High-intensity luminous ignition | `filter: drop-shadow(0 0 24px accent)`, `opacity: 0 → 1 → 0` | `fast` | `spring-snappy` | High |
+| `effects.frosted-glass-refract` | Translucent refraction with chromatic dispersion | `backdrop-filter: blur(16px)`, `refractive_index: 1.52`, `split_offset: micro` | `normal` | `ease-out-cubic` | High |
+| `effects.noise-shimmer` | Organic tactile surface grain modulation | `opacity: 0.02 → 0.05 → 0.02`, `frequency: 24fps` | Continuous | `linear` | Low |
 
 ---
 
@@ -124,3 +126,24 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 | `morph-shape` | Shape A vertices interpolate to Shape B | `d: pathA → pathB`, `topology: matched_vertices` | `slow` | `ease-in-out-cubic` | Shared Element Carrier |
 | `zoom-through` | Massive scale expansion revealing next beat | `scale: 1.0 → 8.0`, `opacity: 1 → 0` | `slow` | `ease-in-expo` | Deep Dive Vector |
 | `carrier-dock` | Element flies across cut into new UI slot | `x, y, scale: posA → posB` | `slow` | `spring-gentle` | Direct Eye Carrier |
+
+---
+
+## 11. Vector Lines, Path Drawing & Path-Follow Atoms
+
+| Atom Name | Description | Key Properties (`from → to`) | Default Duration | Easing | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`vector.path-draw`** | Organic SVG stroke line write-on | `stroke-dashoffset: 100% → 0%`, `stroke-linecap: round` | `slow` | `ease-in-out-cubic` | Med |
+| **`vector.path-follow`**| Element traverses along custom bezier curve | `offset-path: path(...)`, `offset-distance: 0% → 100%`, `auto_rotate: true` | `slow` | `ease-out-expo` | Med |
+| **`vector.trim-offset`** | Trim start & end offset (AE Shape style) | `trim_start: 0% → 80%`, `trim_end: 20% → 100%`, `trim_offset: 0° → 360°` | `normal` | `ease-out-cubic` | Med |
+| **`vector.minimal-line-wipe`**| Architectural hairline slicing across frame | `scaleX: 0 → 1`, `transform_origin: left`, `stroke_width: 1px` | `fast` | `ease-out-expo` | Low |
+
+---
+
+## 12. Organic Fluid Dynamics & Liquid Morph Atoms
+
+| Atom Name | Description | Key Physics Properties | Default Duration | Easing | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`liquid.blob-morph`** | Viscous droplet morphing with organic tension | `d: path(blobA) → path(blobB)`, `viscosity: 0.82` | `slow` | `spring-gentle` | High |
+| **`liquid.surface-tension-merge`**| Two approaching elements merge via gooey bridge | `gooey_threshold: alpha(0.85)`, `bridge_radius: 24px` | `normal` | `spring-snappy` | High |
+| **`liquid.droplet-splash`** | Tear-off droplet detaching and landing with recoil | `gravity: 0.5`, `elastic_recoil: 0.4`, `decay: 0.85` | `fast` | `physics.elastic-restitution` | High |

@@ -67,18 +67,45 @@ Select the primary format category:
 - **Pacing:** `glacial` (2000ms+) with linear or ultra-soft sinusoidal flow.
 - **Typical Atoms:** `gradient-cycle`, `noise-evolution`, `fluid-distortion`.
 
+### 7. Editorial Luxury
+- **Intent:** High-fashion, premium craftsmanship, timeless authority.
+- **Pacing:** `adagio` (600–1200ms) with viscous overdamped settling ($\zeta = 1.40$).
+- **Optics & Typography:** `lens-macro-85`, `bokeh-f1.4-circular`, serif variable weight morphing, subtle specular sweeps (`effects.light-sweep`), `feather-soft` masks.
+- **Typical Atoms:** `type.weight-morph`, `effects.light-sweep`, `physics.hysteresis-settle`.
+
+### 8. Brutalist Raw
+- **Intent:** Unapologetic high-energy impact, counter-culture, high-density rhythm.
+- **Pacing:** `staccato` (60–150ms), hard cuts, zero-easing stepped transitions (`steps(1)`).
+- **Optics & Typography:** `blur-disabled` (0° Shutter), `feather-none` (hard SVG edges), heavy grotesque display fonts, inverted ink/ground flashes.
+- **Typical Atoms:** `typewriter-in`, `scale-pop`, `split-reveal-h`.
+
+### 9. Tactile Glass & Spatial Material
+- **Intent:** Tangible 2.5D physical depth, translucent spatial UI, glassmorphism.
+- **Pacing:** `moderato` (300–450ms) with spring dynamics ($\zeta = 0.70$).
+- **Optics & Material:** Refraction index ($n = 1.52$), chromatic aberration (`split_offset: micro`), dynamic contact shadow pinch (`shadow-contact-pinch`), 2.5D layer tilt.
+- **Typical Atoms:** `effects.frosted-glass-refract`, `effects.chromatic-aberration`, `camera.dolly-in`.
+
+### 10. Fintech Precision & Technical HUD
+- **Intent:** Institutional confidence, high-velocity analytics, algorithmic clarity.
+- **Pacing:** `allegro` (150–300ms) with critically damped settling ($\zeta = 1.00$).
+- **Optics & Typography:** `bokeh-f2.8-hexagonal`, tabular monospace numeric counters, vector ghost trails (`effects.vector-trail`), crisp UI lines.
+- **Typical Atoms:** `counter-up`, `draw-in`, `effects.vector-trail`.
+
 ---
 
 ## 4. Style Selection Decision Matrix
 
 ```text
 Is text the primary argument?
-  ├── YES ──> Choose 'kinetic-type' + 'Kinetic Typography' style
+  ├── YES
+  │     ├── Is it luxury/editorial? ──> 'editorial-luxury' + 'Type' matter
+  │     ├── Is it counter-culture/punchy? ──> 'brutalist-raw' + 'Type' matter
+  │     └── Standard kinetic story? ──> 'kinetic-type' + 'Kinetic Typography'
   └── NO
        ├── Is it a product or UI demonstration?
-       │     ├── YES ──> Choose 'webpage-ui' or 'Product Showcase'
-       │     └── NO
-       │          ├── Is it numerical or analytical?
-       │          │     ├── YES ──> Choose 'stat-count' or 'data-charts'
-       │          │     └── NO  ──> Choose 'Explainer' or 'Minimalist'
+       │     ├── 2.5D translucent tactile glass? ──> 'tactile-glass' + 'UI/Product'
+       │     └── Standard web feature? ──> 'webpage-ui' or 'Product Showcase'
+       └── Is it numerical or analytical?
+             ├── High-velocity data/metrics? ──> 'fintech-precision' + 'Data'
+             └── General chart/infographic? ──> 'stat-count' or 'data-charts'
 ```
