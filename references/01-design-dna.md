@@ -15,9 +15,12 @@ Every animated scene produced by `motion-director` must satisfy these foundation
      - **At most ONE High-Energy Hero Action** (e.g., major card entrance, hero title reveal, dramatic camera push).
      - **At most TWO Low-Energy Secondary Actions** (e.g., subtle particle drift, specular light sheen, background counter tick).
    - Violating this budget causes cognitive visual fatigue.
-3. **Perceptual Color Space (OKLCH Law):**
+3. **Perceptual Color Space & APCA Contrast Law:**
    - Color transitions and gradient morphs MUST interpolate in polar perceptual color space (**OKLCH** or **CIELAB**).
    - Standard sRGB interpolation creates desaturated, muddy gray dead-zones midway through transitions. OKLCH preserves constant chroma and perceived luminosity throughout the entire tween.
+   - **APCA Contrast Conformance:** Dynamic typography moving over backgrounds or blurred surfaces must maintain minimum Accessible Perceptual Contrast Algorithm levels:
+     - **Body Text / Micro-Labels:** $\ge L^c 75$ contrast.
+     - **Hero Headlines / Display Claims:** $\ge L^c 60$ contrast.
 4. **Pixel Snapping & Sub-Pixel Anti-Aliasing Guard:**
    - Dynamic motion uses smooth sub-pixel float coordinates during transit.
    - Upon arriving at any **Hold or Rest state**, all coordinates and dimensions MUST snap to whole integer pixels (`Math.round`) to prevent edge fuzziness and shimmering artifacts.
@@ -44,7 +47,9 @@ Every animated scene produced by `motion-director` must satisfy these foundation
    - Organic motion requires asymmetric curves: aggressive acceleration (`ease-in`) paired with a long, gentle deceleration/settle (`ease-out`), or mass-damped springs.
 11. **Follow-Through & Overlapping Action:**
    - Elements never lock into place on the exact same frame. Secondary layers, attached badges, shadows, and text settle with a 50–150ms delay/offset relative to the primary hero.
-12. **Settle & Negative Time:**
+12. **Focus Handoff Anchoring:**
+   - When transferring viewer attention across scenes or layers, the current primary focal anchor must complete **$\ge 70\%$ of its settle hold** before the next focal target begins accelerating.
+13. **Settle & Negative Time:**
    - Elements do not hit target values like a brick wall; they decelerate smoothly into a rest state (`decay`).
    - Every completed action must include intentional negative time (**0.3s – 0.8s hold**) allowing the viewer to absorb the message before the next beat begins.
 
@@ -103,14 +108,14 @@ Pick **ONE primary matter**. A second matter may exist only as support. Three is
 
 ## 6. Color Roles & Motion Permissions
 
-| Role | Job | Motion Permission |
-| :--- | :--- | :--- |
-| **Ground** | Largest field. Holds the world. | **Never moves** (stays stable). |
-| **Ink** | Primary typography and core structure. | Enters with authority; **never flashes or strobes**. |
-| **Quiet** | Secondary typography, grid rules, chrome. | Minimal subtle motion; yields to Ink and Accent. |
-| **Accent** | The ONE color that means "this is the point". | **Moves only when earned** (scarce, deliberate). |
-| **Signal** | State changes (success, alert, live). | **Animates ONLY upon state transitions**. |
-| **Fog / Depth**| Atmosphere (tint, blur, grain, depth). | Static or very slow ambient drift (`glacial`). |
+| Role | Job | APCA Minimum Contrast | Motion Permission |
+| :--- | :--- | :--- | :--- |
+| **Ground** | Largest field. Holds the world. | Baseline (`L^c 0`) | **Never moves** (stays stable). |
+| **Ink** | Primary typography and core structure. | $\ge L^c 75$ (body) / $\ge L^c 60$ (hero) | Enters with authority; **never flashes or strobes**. |
+| **Quiet** | Secondary typography, grid rules, chrome. | $\ge L^c 45$ | Minimal subtle motion; yields to Ink and Accent. |
+| **Accent** | The ONE color that means "this is the point". | $\ge L^c 60$ vs Ground | **Moves only when earned** (scarce, deliberate). |
+| **Signal** | State changes (success, alert, live). | State-dependent | **Animates ONLY upon state transitions**. |
+| **Fog / Depth**| Atmosphere (tint, blur, grain, depth). | Ambient tint | Static or very slow ambient drift (`glacial`). |
 
 ---
 

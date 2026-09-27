@@ -115,20 +115,22 @@ Generate the definitive `STORYBOARD.md`:
 
 ## 4. Pre-Flight Validation Checklist
 
-Before presenting `STORYBOARD.md`, verify:
-- [ ] Every timing and easing value references a named token (no raw magic numbers).
-- [ ] Every animated layer declares a mandatory `reduced_motion` fallback.
-- [ ] Motion Density Budget is respected (max 1 high-energy + 2 secondary actions).
-- [ ] Color tweens use OKLCH interpolation (zero muddy gray transitions).
-- [ ] Coordinates snap to whole integer pixels on all Hold/Rest states (zero sub-pixel blur).
-- [ ] Text reveals use cap-height optical alignment and kerning collision guards.
-- [ ] Exactly one primary focal anchor per beat (no cognitive overload).
-- [ ] Anticipation, Volume Conservation ($\text{scaleX} \cdot \text{scaleY} \approx 1$), Momentum Transfer, Viscous Hysteresis, and Settle holds are explicitly scheduled.
-- [ ] Every scaling/rotating layer declares an explicit `transform_origin`.
-- [ ] Multi-axis travels follow natural G2-continuous curves.
-- [ ] Vector morphs declare path topology compatibility.
-- [ ] All scene transitions pass the Vector Seam Matrix with verified carriers.
-- [ ] Audio/SFX hit points are bound to frequency bands with acoustic ducking (-6dB) on climax.
-- [ ] Production Timeline Marker Manifest is declared for target engine handoff.
-- [ ] Layout complies with Safe Zones across target aspect ratios (16:9 / 9:16).
-- [ ] Zero idle wobble or pointless continuous breathing.
+Before presenting `STORYBOARD.md`, verify all 18 quality gates:
+- [ ] **Token Integrity:** Every timing and easing value references a named token (zero raw magic numbers).
+- [ ] **Accessibility (A11y):** Every animated layer declares a mandatory `reduced_motion` fallback.
+- [ ] **Motion Density Budget:** Respected at all timestamps (max 1 high-energy + 2 secondary actions).
+- [ ] **Color & Contrast:** Color tweens use OKLCH interpolation and satisfy APCA contrast ($\ge L^c 75$ body / $\ge L^c 60$ hero).
+- [ ] **Pixel Snapping Guard:** Coordinates snap to whole integer pixels on all Hold/Rest states (zero anti-aliasing blur).
+- [ ] **Typographic Optical Precision:** Text reveals use cap-height optical alignment, kerning collision guards, and descender mask padding.
+- [ ] **Focus Handoff Anchoring:** Active hero anchor reaches $\ge 70\%$ settle hold before the next focal target accelerates.
+- [ ] **Trajectory & Tangent Lock:** Curved travels follow natural G2-continuous curves with Continuous Tangent Lock (`tangent_lock: continuous-g2`).
+- [ ] **Physics Laws:** Anticipation, Volume Conservation ($\text{scaleX} \cdot \text{scaleY} \approx 1$), Momentum Transfer, Damping Ratio ($\zeta$), and Settle holds are explicitly scheduled.
+- [ ] **Contact Shadow Dynamics:** Dynamic contact shadow pinch (`shadow-contact-pinch`) and elevation falloff defined for elevated objects.
+- [ ] **Multiplane Parallax:** Calibrated speed multipliers declared across all active depth planes ($v_{\text{fg}} \dots v_{\text{bg}}$).
+- [ ] **Transform Origins:** Every scaling/rotating layer declares an explicit `transform_origin`.
+- [ ] **Vector & Liquid Topology:** Vector morphs and organic liquid dynamics declare topology and surface tension parameters.
+- [ ] **Vector Seam Matrix:** All scene transitions pass vector continuity with verified carriers and matched trajectory angles ($\theta_{\text{exit}} = \theta_{\text{entry}}$).
+- [ ] **Audiovisual Stems & Ducking:** Audio cues bind to spectral bands and designated mix stems (`stem-vo`, `stem-sfx-hero`, etc.) with dynamic -6dB ducking on climax.
+- [ ] **Production Marker Manifest:** Timeline markers declared for After Effects, Rive, and GSAP handoff.
+- [ ] **Interactive Ergonomics:** Interactive state machines maintain Fitts's Law touch bounds ($44\times 44\text{px}$) and declare ballistic fling decay.
+- [ ] **Cross-Platform & Safe Zones:** Layout complies with Safe Zones across target aspect ratios (16:9 / 9:16 / 1:1) with automatic RTL mirroring when localized.

@@ -104,3 +104,11 @@ Audio choreography must designate sound events into discrete mix stems:
 | **`stem-sfx-hero`** | High (-2dB) | Climax sub-bass hits (`sfx-sub`), impact punches | Uncompressed transients; ducks ambient bed |
 | **`stem-foley-ui`** | Medium (-8dB) | Micro-clicks, card flips, variable font ticks | Crisp high-air transient; zero low-end mud |
 | **`stem-bed-atmos`**| Low (-14dB to -20dB) | Continuous drone, atmospheric room tone | Dynamically ducks during VO and hero impacts |
+
+---
+
+## 11. Focus Handoff Anchoring (%70 Settle Rule)
+
+To protect visual cognitive continuity and prevent saccadic eye fatigue:
+- When transitioning focal emphasis between two UI elements or scenes, the currently active hero anchor must reach **$\ge 70\%$ of its settle hold** before the next element begins its acceleration trajectory.
+- Never trigger simultaneous competing entrances on opposite sides of the viewport.
