@@ -118,16 +118,56 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 10. Cinematic Transition & Montage Atoms
+## 10. Cinematic Transition & Montage Taxonomy (24 Master Transitions)
 
-| Atom Name | Description | Key Properties (`from → to`) | Default Duration | Default Easing | Continuity Role |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **`transition.cut-the-curve`** | Exit & entry matched mid-velocity | `x: 0 → -100vw` (Exit) + `x: 100vw → 0` (Entry) | `normal` | `ease-in-expo` + `ease-out-expo` | Master Seam Standard |
-| **`transition.match-cut`** | Geometric shape, scale, or color alignment | `geometryA → geometryB`, `scaleA = scaleB` | `instant` / `fast` | `ease-out-cubic` | Conceptual Metaphor Match |
-| **`transition.smash-cut`** | Zero-hold high-velocity cut into peak action | Cut at peak velocity ($\vec{v}_{\text{max}}$), zero settle | `instant` | `linear` | High-Impact Climax Slam |
-| **`transition.occlusion-wipe`**| Foreground object swipes camera revealing scene B | `translateForegroundX: -100vw → 100vw`, `clip-path` | `slow` | `ease-in-out-cubic` | Natural Diegetic Wipe |
-| **`transition.morph-dock`** | Element flies across cut and morphs into new UI dock | `x, y, scale, shape: posA → posB` | `slow` | `spring-gentle` | Persistent Eye Carrier |
-| **`transition.zoom-through`** | Massive scale expansion revealing next world | `scale: 1.0 → 12.0`, `opacity: 1 → 0` | `slow` | `ease-in-expo` | Deep Dive Vector |
+### A. Spatial & 3D Camera Transitions
+| Atom Name | Description | Key Spatial Properties (`from → to`) | Default Duration | Easing |
+| :--- | :--- | :--- | :--- | :--- |
+| **`transition.whip-pan`** | High-velocity linear streak pan matching trajectory | `camera.x: 0 → -100vw`, `motion_blur: shutter-360` ($\theta_{\text{exit}}=\theta_{\text{entry}}$) | `fast` | `ease-in-expo` + `ease-out-expo` |
+| **`transition.scale-plunge`** | Dives through a negative space opening/letter | `camera.z: 0 → +1500px`, `scale: 1.0 → 20.0`, `opacity: 1 → 0` | `slow` | `ease-in-expo` |
+| **`transition.crash-zoom-out`**| Snap pullback from micro detail to macro world | `camera.z: -1200px → 0px`, `scale: 0.05 → 1.0` | `fast` | `spring-snappy` |
+| **`transition.orbit-axial-flip`**| 3D camera rotates around axis to reveal reverse scene | `rotateY: 0° → 180°`, `transform_origin: center` | `normal` | `ease-in-out-cubic` |
+| **`transition.parallax-slice`**| Depth planes slide at differential velocities | $v_{\text{fg}} = 1.8v_0$, $v_{\text{mid}} = 1.0v_0$, $v_{\text{bg}} = 0.2v_0$ in split directions | `normal` | `ease-out-expo` |
+
+### B. Montage & Conceptual Match Transitions
+| Atom Name | Description | Key Properties (`from → to`) | Default Duration | Easing |
+| :--- | :--- | :--- | :--- | :--- |
+| **`transition.match-cut-geometric`**| Shape silhouette and scale alignment across cut | `shapeA.circle → shapeB.pieChart`, `scaleA = scaleB` | `instant` / `fast` | `ease-out-cubic` |
+| **`transition.match-cut-vector`** | Exit velocity vector matches entry velocity vector | $\vec{v}_{\text{exit}}(A) = \vec{v}_{\text{entry}}(B)$ along identical trajectory | `fast` | `cut-the-curve` |
+| **`transition.match-cut-chromatic`**| Full-screen accent color becomes ground of next scene | `accent_fill: 100vw → next_scene.ground` | `fast` | `ease-out-expo` |
+| **`transition.smash-cut`** | Zero-hold high-velocity cut on peak climax impact | Cut at peak velocity ($\vec{v}_{\text{max}}$), zero settle | `instant` | `linear` |
+| **`transition.jump-cut-staccato`**| Rhythmic spatial hops along same camera axis | `camera.z: step1 → step2 → step3`, no angle change | `fast` per hop | `steps(1)` |
+
+### C. Optics, Lens & Shutter Transitions
+| Atom Name | Description | Key Optical Properties | Default Duration | Easing |
+| :--- | :--- | :--- | :--- | :--- |
+| **`transition.lens-flare-burn`** | Anamorphic streak / over-exposure wash | `brightness: 1.0 → 3.5 → 1.0`, `blend-screen` | `fast` | `ease-out-expo` |
+| **`transition.rack-focus-defocus`**| Scene A pulls to bokeh, Scene B pulls sharp | `sceneA.blur: 0 → 16px` + `sceneB.blur: 16px → 0` | `normal` | `ease-in-out-cubic` |
+| **`transition.chromatic-shatter`**| RGB prism split during high-speed transition | `split_offset: 0px → 12px → 0px` on RGB channels | `fast` | `spring-snappy` |
+| **`transition.light-leak-sweep`** | Organic film burn wash sweeps across frame | `background: light-leak-gradient`, `blend-screen` | `normal` | `ease-out-expo` |
+
+### D. Diegetic Occlusion & Portals
+| Atom Name | Description | Key Mechanical Properties | Default Duration | Easing |
+| :--- | :--- | :--- | :--- | :--- |
+| **`transition.occlusion-wipe`** | Passing foreground object swipes camera revealing scene B | `translateForegroundX: -100vw → 100vw`, `clip-path` | `slow` | `ease-in-out-cubic` |
+| **`transition.mask-portal-expand`**| Geometric shape expands from center to fill canvas | `clip-path: circle(0% at center) → circle(150%)` | `normal` | `ease-out-expo` |
+| **`transition.split-curtain-unfold`**| Central seam opens like architectural shutters | `clip-path: split-horizontal(50% → 0%)` | `normal` | `ease-out-expo` |
+| **`transition.cut-the-curve`** | Master velocity match mid-transit across cut | `x: 0 → -100vw` (Exit) + `x: 100vw → 0` (Entry) | `normal` | `ease-in-expo` + `ease-out-expo` |
+
+### E. Material, Fluid & Morph Transitions
+| Atom Name | Description | Key Physics Properties | Default Duration | Easing |
+| :--- | :--- | :--- | :--- | :--- |
+| **`transition.morph-dock`** | Persistent asset morphs topology into new UI container | `d: pathA → pathB`, `posA → posB`, `topology: matched` | `slow` | `spring-gentle` |
+| **`transition.viscous-liquid-wipe`**| Gooey fluid wave sweeps across canvas | `gooey_threshold: alpha(0.85)`, `viscosity: 0.8` | `slow` | `spring-gentle` |
+| **`transition.particle-dissolve-rebuild`**| Object disintegrates into particles and reconstructs | `particles.emit → particles.gather(targetShape)` | `slow` | `ease-in-out-cubic` |
+| **`transition.paper-fold-origami`**| 2.5D geometric plane folds along diagonal vector | `rotate3d: (1, 1, 0, 180deg)`, `origin: diagonal` | `normal` | `spring-snappy` |
+
+### F. Graphic & Typographic Transitions (Swiss / Brutalist)
+| Atom Name | Description | Key Graphic Properties | Default Duration | Easing |
+| :--- | :--- | :--- | :--- | :--- |
+| **`transition.swiss-grid-slice`**| Columns/rows shift along typography grid lines | `translateY(col_odd): +100vh`, `translateY(col_even): -100vh` | `fast` | `ease-out-expo` |
+| **`transition.invert-flash`** | 1-frame ink/ground color inversion | `color: invert(ground ↔ ink)` for 1 frame | `instant` | `steps(1)` |
+| **`transition.kinetic-type-push`**| Massive header bulldozes previous scene off-screen | `translateX(heroText): 100vw → 0`, `sceneA: -100vw` | `normal` | `ease-out-expo` |
 
 ---
 

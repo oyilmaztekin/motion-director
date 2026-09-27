@@ -28,6 +28,7 @@ This document serves as a conceptual translation dictionary for downstream imple
 
 ### A. Web (GSAP / Framer Motion / CSS)
 - **Transforms & GPU Promotion:** Map layers to `transform: translate3d(x, y, 0) scale(s) rotate(r)` and manage `will-change: transform, opacity` dynamically during active spans.
+- **Cinematic Transitions:** Map `transition.morph-dock` and `transition.match-cut` to GSAP `Flip` plugin or Framer `layoutId`. Map `transition.mask-portal-expand` to CSS `clip-path: circle(...)`.
 - **Vectors & Path Following:** Map `vector.path-draw` to GSAP `DrawSVGPlugin` (`drawSVG: "0% 100%"`) or CSS `stroke-dashoffset`. Map `vector.path-follow` to CSS `offset-path: path(...)` or GSAP `MotionPathPlugin`.
 - **Liquid Morphs:** Map `liquid.blob-morph` to SVG `<feGaussianBlur>` + `<feColorMatrix>` gooey filter pipeline.
 - **Color Interpolation:** Use CSS `color-mix(in oklch, ...)` or interpolate lightness/chroma channels independently.
@@ -35,6 +36,7 @@ This document serves as a conceptual translation dictionary for downstream imple
 
 ### B. Video & Motion Graphics (After Effects / Premiere / Remotion)
 - **Timeline Markers:** Scene beats map directly to composition markers (`Intro_Start`, `Data_Reveal`, `Climax_Burst`, `Final_Settle`).
+- **Montage Transitions:** Map `transition.whip-pan` to Null Object Camera Pans with Directional Blur. Map `transition.occlusion-wipe` to Alpha/Luma Track Mattes. Map `transition.scale-plunge` to 3D Layer Camera Z-Dolly.
 - **Path & Shape Vectors:** Map `vector.trim-offset` directly to Shape Layer `Trim Paths` (`Start`, `End`, `Offset`). Map `vector.path-follow` to Layer `Auto-Orient along Path`.
 - **Liquid Dynamics:** Map `liquid.blob-morph` to `CC Simple Choker` + `Fast Box Blur` adjustment layer stack.
 - **Hold Spans:** Negative time translates to freeze spans between keyframe clusters.
@@ -42,5 +44,6 @@ This document serves as a conceptual translation dictionary for downstream imple
 
 ### C. 2D Interactive (Rive / Lottie)
 - **State Machine Layers:** The storyboard's `state_machine` maps directly to Rive State Machine Layers, Transitions, and Inputs (`trig_start`, `trig_climax`, `state_settled`).
+- **Portals & Morphs:** Map `transition.mask-portal-expand` to Clipping Paths. Map `transition.morph-dock` to Bone Constraints and Vertex Interpolation.
 - **Vector Paths:** Animate vector vertices and path trim directly on Rive shape paths with bones/constraints.
 - **Hit-Area Protection:** Use transparent collision geometry to ensure interactive bounds conform to the Fitts's Law 44x44px standard.

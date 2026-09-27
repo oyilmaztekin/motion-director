@@ -64,12 +64,14 @@ $$\vec{v}_{\text{exit}}(\text{Frame } N) = \vec{v}_{\text{entry}}(\text{Frame } 
 3. **Speed Matching (`Cut-The-Curve`):** Exit final velocity ≈ Entry initial velocity. Scene B enters at ≥50% through its notional path rather than starting from a dead stop.
 4. **Zero Dead Beats:** The cut occurs mid-motion on both sides.
 
-### Cinematic Montage Grammar
-Beyond simple vector slides, use intentional editing cuts:
-1. **Match Cut (`transition.match-cut`):** Scene A ends on an object that shares exact geometric silhouette, color, or coordinate anchor with Scene B's entering hero (e.g., circular search button morphs into expanding radial chart).
-2. **Smash Cut (`transition.smash-cut`):** High-velocity energy cut on a climax impact without intermediate settling, slamming directly into the resolved payload.
-3. **Occlusion Wipe (`transition.occlusion-wipe`):** A large passing foreground element acts as a natural shutter, wiping the screen to reveal the next environment.
-4. **Concrete Carriers (`transition.morph-dock`):** A physical object (card, cursor, keyword) travels across the cut to anchor the viewer's eye into the new layout slot.
+### Cinematic Montage & Transition Grammar (6 Families)
+Beyond basic slides, every scene cut must declare its transition family and atom from `03-atomic-motions.md §10`:
+1. **Spatial & Camera (`whip-pan`, `scale-plunge`, `crash-zoom-out`, `orbit-axial-flip`, `parallax-slice`)**: Dimensional perspective shifts maintaining trajectory vector continuity ($\theta_{\text{exit}} = \theta_{\text{entry}}$).
+2. **Montage & Conceptual Match (`match-cut-geometric`, `match-cut-vector`, `match-cut-chromatic`, `smash-cut`, `jump-cut-staccato`)**: Metaphorical and energetic alignment bridging two disparate contexts.
+3. **Optics & Lens (`lens-flare-burn`, `rack-focus-defocus`, `chromatic-shatter`, `light-leak-sweep`)**: Physical camera shutter and optical focus pulls.
+4. **Diegetic Occlusion & Portals (`occlusion-wipe`, `mask-portal-expand`, `split-curtain-unfold`, `cut-the-curve`)**: In-scene physical geometry wiping the frame.
+5. **Material, Fluid & Morph (`morph-dock`, `viscous-liquid-wipe`, `particle-dissolve-rebuild`, `paper-fold-origami`)**: Continuous physical matter deformation.
+6. **Graphic & Typographic (`swiss-grid-slice`, `invert-flash`, `kinetic-type-push`)**: Architectural grid and brutalist typographic displacements.
 
 ### Causal Motion (Action & Reaction Chain)
 `Click → Squash → Spring Release → Flight → Impact → Recoil → Reveal`. Reactions ignite on the exact causing frame.
