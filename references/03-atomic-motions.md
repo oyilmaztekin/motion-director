@@ -118,14 +118,16 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 10. Transition & Vector Morph Atoms
+## 10. Cinematic Transition & Montage Atoms
 
-| Atom Name | Description | Key Properties | Default Duration | Default Easing | Continuity Role |
+| Atom Name | Description | Key Properties (`from → to`) | Default Duration | Default Easing | Continuity Role |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `cut-the-curve` | Exit & entry matched mid-velocity | `x: 0 → -100vw` (Exit) + `x: 100vw → 0` (Entry) | `normal` | `ease-in-expo` + `ease-out-expo` | Master Seam Standard |
-| `morph-shape` | Shape A vertices interpolate to Shape B | `d: pathA → pathB`, `topology: matched_vertices` | `slow` | `ease-in-out-cubic` | Shared Element Carrier |
-| `zoom-through` | Massive scale expansion revealing next beat | `scale: 1.0 → 8.0`, `opacity: 1 → 0` | `slow` | `ease-in-expo` | Deep Dive Vector |
-| `carrier-dock` | Element flies across cut into new UI slot | `x, y, scale: posA → posB` | `slow` | `spring-gentle` | Direct Eye Carrier |
+| **`transition.cut-the-curve`** | Exit & entry matched mid-velocity | `x: 0 → -100vw` (Exit) + `x: 100vw → 0` (Entry) | `normal` | `ease-in-expo` + `ease-out-expo` | Master Seam Standard |
+| **`transition.match-cut`** | Geometric shape, scale, or color alignment | `geometryA → geometryB`, `scaleA = scaleB` | `instant` / `fast` | `ease-out-cubic` | Conceptual Metaphor Match |
+| **`transition.smash-cut`** | Zero-hold high-velocity cut into peak action | Cut at peak velocity ($\vec{v}_{\text{max}}$), zero settle | `instant` | `linear` | High-Impact Climax Slam |
+| **`transition.occlusion-wipe`**| Foreground object swipes camera revealing scene B | `translateForegroundX: -100vw → 100vw`, `clip-path` | `slow` | `ease-in-out-cubic` | Natural Diegetic Wipe |
+| **`transition.morph-dock`** | Element flies across cut and morphs into new UI dock | `x, y, scale, shape: posA → posB` | `slow` | `spring-gentle` | Persistent Eye Carrier |
+| **`transition.zoom-through`** | Massive scale expansion revealing next world | `scale: 1.0 → 12.0`, `opacity: 1 → 0` | `slow` | `ease-in-expo` | Deep Dive Vector |
 
 ---
 

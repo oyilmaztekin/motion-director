@@ -43,20 +43,22 @@ This document defines the definitive deliverable template produced by `motion-di
 
 ## 2. Beat-by-Beat Choreography & Sonic Table
 
-| Beat | Timestamp | Still Composition & Safe Zone | Motion, Atom & Camera | Origin & Path | Blend & Mask | Carrier Across Seam | Audio Cue, Band & Ducking | Hold / Negative Time | Narrative Why |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **01** | `0.0s - 0.6s` | Ground established, Hero headline | `clip-reveal-left` [Settle] + `type.tracking-breath` | `origin-left-center`<br>`direct-axis` | `blend-normal`<br>`feather-soft` | Headline text line | `sfx-whoosh`<br>(mid-snap) | `0.4s hold` | Establish core claim |
-| **02** | `1.0s - 1.8s` | Data card emerges (Midground) | `slide-in-up` [Anticipation] + `camera.dolly-in` | `origin-bottom-center`<br>`arc-convex (G2)` | `effects.light-sweep`<br>`blend-overlay` | Card border | `sfx-riser`<br>(high-air) | `0.6s hold` | Evidence payload |
-| **03** | `2.4s - 3.2s` | Metric counts to 99% + Burst | `counter-up` + `physics.momentum-transfer` | `origin-center`<br>`volume-preserve` | `blend-screen`<br>`depth-fog-cool` | Signal accent ring | `sfx-sub`<br>(low-sub, -6dB duck) | `0.8s hold` | Climax payoff |
+| Beat | Dramatic Role | Timestamp | Still Composition & Safe Zone | Motion, Atom & Camera | Origin & Path | Blend & Mask | Carrier Across Seam | Audio Cue, Band & Ducking | Hold / Settle | Narrative Why |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **01** | `Hook` | `0.0s - 0.6s` | Ground established, Hero headline | `clip-reveal-left` [Settle] + `type.tracking-breath` | `origin-left-center`<br>`direct-axis` | `blend-normal`<br>`feather-soft` | Headline text line | `sfx-whoosh`<br>(mid-snap) | `0.4s hold` | Establish core claim |
+| **02** | `Escalation` | `1.0s - 1.8s` | Data card emerges (Midground) | `slide-in-up` [Anticipation] + `camera.dolly-in` | `origin-bottom-center`<br>`arc-convex (G2)` | `effects.light-sweep`<br>`blend-overlay` | Card border | `sfx-riser`<br>(high-air) | `0.6s hold` | Evidence payload |
+| **03** | `Climax` | `2.4s - 3.2s` | Metric counts to 99% + Burst | `counter-up` + `physics.momentum-transfer` | `origin-center`<br>`volume-preserve` | `blend-screen`<br>`depth-fog-cool` | Signal accent ring | `sfx-sub`<br>(low-sub, -6dB duck) | `0.8s hold` | Climax payoff |
+| **04** | `Resolve` | `3.2s - 4.0s` | Final CTA lock & Contact Pinch | `scale-pop` [Settle] + `shadow-contact-pinch` | `origin-center`<br>`direct-axis` | `blend-normal`<br>`feather-none` | CTA button | `sfx-click`<br>(mid-snap) | `0.8s hold` | Cognitive absorption & CTA |
 
 ---
 
-## 3. Vector Seam Continuity Matrix (Inter-Scene QA)
+## 3. Vector Seam & Montage Continuity Matrix (Inter-Scene QA)
 
-| Seam # | Cut Time | Scene A Exit Vector | Scene B Entry Vector | Carrier Element | Velocity Continuity | Vector Law Status |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Seam 1→2** | `0.8s` | `X: -100vw (left)` | `X: +100vw → 0 (left)` | Headline Text Group | Matched mid-motion (≥50%) | **PASS (Vector Matched)** |
-| **Seam 2→3** | `2.0s` | `Z: push-forward (+40px)` | `Z: scale-up (push-forward)` | Metric Card Frame | Matched scale-velocity sign | **PASS (Z-Sign Matched)** |
+| Seam # | Cut Time | Montage Cut Type | Scene A Exit Vector | Scene B Entry Vector | Carrier Element | Velocity Continuity | Vector Law Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Seam 1→2** | `0.8s` | `transition.cut-the-curve` | `X: -100vw (left)` | `X: +100vw → 0 (left)` | Headline Text Group | Matched mid-motion (≥50%) | **PASS (Vector Matched)** |
+| **Seam 2→3** | `2.0s` | `transition.match-cut` | `Z: push-forward (+40px)` | `Z: scale-up (push-forward)` | Metric Card Frame | Matched scale-velocity sign | **PASS (Z-Sign Matched)** |
+| **Seam 3→4** | `3.2s` | `transition.morph-dock` | `Scale: 1.2 → 1.0` | `XY: Docking into corner` | CTA Capsule | Continuous carrier transit | **PASS (Docking Matched)** |
 
 ---
 

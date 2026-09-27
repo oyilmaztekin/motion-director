@@ -52,6 +52,11 @@ Every animated scene produced by `motion-director` must satisfy these foundation
 13. **Settle & Negative Time:**
    - Elements do not hit target values like a brick wall; they decelerate smoothly into a rest state (`decay`).
    - Every completed action must include intentional negative time (**0.3s – 0.8s hold**) allowing the viewer to absorb the message before the next beat begins.
+14. **Kinetic Hierarchy & Motion Magnitude Ratio ($1.0 : 0.35 : 0.10$):**
+   - Simultaneous layer displacements must strictly observe energy scaling to prevent visual clutter:
+     - **Primary Hero Action ($1.0\times$):** Full travel distance / scale transformation (Commands 100% of eye tracking).
+     - **Secondary Supporting Layer ($\le 0.35\times$):** Badges, shadows, adjacent cards move at $\le 35\%$ the hero's travel distance.
+     - **Ambient / Micro Accent ($\le 0.10\times$):** Grain modulation, micro-ticks, light sheen move at $\le 10\%$ displacement.
 
 ---
 

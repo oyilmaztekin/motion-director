@@ -64,8 +64,12 @@ $$\vec{v}_{\text{exit}}(\text{Frame } N) = \vec{v}_{\text{entry}}(\text{Frame } 
 3. **Speed Matching (`Cut-The-Curve`):** Exit final velocity ≈ Entry initial velocity. Scene B enters at ≥50% through its notional path rather than starting from a dead stop.
 4. **Zero Dead Beats:** The cut occurs mid-motion on both sides.
 
-### Concrete Carriers
-The eye follows physical objects, not abstract dissolves. Strongest transitions pass a **concrete carrier** across the cut (floating card, cursor, hero word group). **Never use crossfades as a lazy default.**
+### Cinematic Montage Grammar
+Beyond simple vector slides, use intentional editing cuts:
+1. **Match Cut (`transition.match-cut`):** Scene A ends on an object that shares exact geometric silhouette, color, or coordinate anchor with Scene B's entering hero (e.g., circular search button morphs into expanding radial chart).
+2. **Smash Cut (`transition.smash-cut`):** High-velocity energy cut on a climax impact without intermediate settling, slamming directly into the resolved payload.
+3. **Occlusion Wipe (`transition.occlusion-wipe`):** A large passing foreground element acts as a natural shutter, wiping the screen to reveal the next environment.
+4. **Concrete Carriers (`transition.morph-dock`):** A physical object (card, cursor, keyword) travels across the cut to anchor the viewer's eye into the new layout slot.
 
 ### Causal Motion (Action & Reaction Chain)
 `Click → Squash → Spring Release → Flight → Impact → Recoil → Reveal`. Reactions ignite on the exact causing frame.
