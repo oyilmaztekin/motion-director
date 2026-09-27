@@ -52,3 +52,11 @@ Modern motion design requires multi-format planning:
 - **Layout Thrashing Guard:** Never animate geometry-reflowing properties (`top`, `left`, `width`, `height`, `margin`, `padding`) during high-frame-rate sequences.
 - **Compositor Lifecycle Isolation:** Promote active layers via `will-change: transform, opacity` at animation ignition, and remove promotion on final settle hold to release GPU memory.
 - **Max Concurrent Tweens:** Limit simultaneous active layer animations to **≤ 6** on desktop and **≤ 3** on mobile to guarantee silky 60fps / 120fps ProMotion execution.
+
+---
+
+## 5. Delta-Time Normalization ($\Delta t$) & Variable Refresh Rate (VRR)
+
+To ensure animations play at identical real-world velocity across 60Hz, 120Hz (Apple ProMotion), and 240Hz displays:
+- **Tick-Rate Independence:** Physics simulations (springs, particles, friction decay) must scale updates by the elapsed delta time ($\Delta t = t_{\text{current}} - t_{\text{previous}}$) rather than a fixed frame increment ($1/60\text{s}$).
+- **Spring Time-Step Clamping:** Clamp maximum $\Delta t \le 33.3\text{ms}$ during tab backgrounding to prevent explosive physics tunneling upon window refocus.

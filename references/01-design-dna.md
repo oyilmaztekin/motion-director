@@ -28,8 +28,9 @@ Every animated scene produced by `motion-director` must satisfy these foundation
 6. **Viscous Hysteresis & Asymmetric Spring Dissipation:**
    - Physical mass does not oscillate symmetrically. Energy dissipates through asymmetric viscous damping:
      $$\text{Overshoot } (60\%) \longrightarrow \text{Rebound } (20\%) \longrightarrow \text{Micro-Settle } (3\%) \longrightarrow \text{Locked Rest}$$
-7. **Spatial Arcs & G2 Curvature Continuity:**
+7. **Spatial Arcs, G2 Curvature Continuity & Continuous Tangent Lock:**
    - Organic motion never travels along robotic diagonal vectors. Trajectories follow natural gravitational curves (`arc-convex` or `arc-concave`) with **G2 Curvature Continuity** (continuous acceleration derivative across path joins, zero radial jerk).
+   - **Continuous Tangent Lock (`tangent_lock: continuous-g2`):** Bezier control handles at keyframe joins must remain collinear ($\theta_{\text{in}} = \theta_{\text{out}}$) to eliminate spatial kinks and unnatural velocity spikes.
 8. **Harmonic Oscillation & Damping Ratio ($\zeta$):**
    - Every physical spring must declare its dimensionless damping ratio ($\zeta$):
      - **Underdamped ($\zeta = 0.70$):** High-energy punch, subtle tactile overshoot.

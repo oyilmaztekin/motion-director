@@ -81,3 +81,13 @@ Linear stagger delay ($d = i \times s$) feels mechanical. Use curved falloff dis
 2. **The Dramatic Comma (Settle Hold):** Once the complete headline or claim is revealed, enforce a **minimum 0.5s – 1.0s static hold** before any secondary transition or scene cut occurs.
 3. **Never Animate While Reading:** Do not apply continuous wobble, pulse, or drift to body text while the user is meant to read it.
 4. **Audio Hit on Hero Word:** Trigger a subtle `sfx-click` or `sfx-whoosh` exactly as the primary emphasis word locks into place.
+
+---
+
+## 7. Multilingual & RTL Spatial Flow Inversion
+
+When producing localized motion graphics for Right-to-Left (RTL) languages (Arabic, Hebrew, Persian):
+- **Flow Inversion:** The Current mirrors automatically: `current_vector: RIGHT` (flowing rightward).
+- **Mask Inversion:** `clip-reveal-left` maps to `clip-reveal-right` (`clip-path: inset(0 0 0 100%) → inset(0)`).
+- **Stagger Inversion:** Character and word staggers reverse index order (`stagger: from-end` or natural RTL layout flow).
+- **Transform Origin:** Horizontal text origins mirror: `origin-left-center` becomes `origin-right-center`.
