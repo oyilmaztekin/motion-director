@@ -19,19 +19,24 @@ Every motion piece must establish **ONE dominant directional flow** (The Current
 
 ---
 
-## 2. Motion Categories
+## 2. Motion Categories Master Catalog
 
-Select the primary format category:
+Select the primary format category for the piece:
 
-| Category | Intent | Key Characteristics |
-| :--- | :--- | :--- |
-| **`kinetic-type`** | Punchy claim, title, kinetic quote | Type scale, ink/ground contrast, staggered word arrival |
-| **`stat-count`** | Hero metric / count-up + ring/bar | Number interpolation, signal accent, settle hold |
-| **`data-charts`** | Bar, line, radial, area data hit | Path drawing, sequential bar rises, quiet chrome |
-| **`logo-reveal`** | Brand ident / signature sting | Mask reveal, optical highlight, single signature settle |
-| **`lower-thirds`** | Name / title / UI overlay badge | Mask slide-in, restrained secondary motion, clean exit |
-| **`webpage-ui`** | Product walkthrough, state change | Cursor anticipation, card morphs, shared element travel |
-| **`asset-fusion`** | Geometric asset morphs into chart/data | Morph-shape, seamless coordinate transformation |
+| Category Key | Display Name | Narrative Intent | Primary Matter | Default Tempo / Cadence | Signature Atoms | Settle Hold |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **`kinetic-type`** | Kinetic Typography | High-impact claim, manifesto, quote sting | `Type` | `allegro` / `syncopated-burst` | `type.tracking-breath`, `clip-reveal-left` | `0.5s – 0.8s` |
+| **`stat-count`** | Hero Metric & Counter | Key KPI count-up, radial gauge, percentage ring | `Data` | `moderato` / `staccato-resolve` | `counter-up`, `physics.momentum-transfer` | `0.6s – 1.0s` |
+| **`data-charts`** | Financial & Data Graphics | Multi-series bar, line path, candlestick, area charts | `Data` | `moderato` / `polyrhythmic-offset` | `vector.path-draw`, `vector.trim-offset` | `0.6s – 0.8s` |
+| **`product-ui-feature`**| SaaS & Product Feature | Interactive feature walkthrough, modal, card morphs | `UI / Product` | `moderato` / `syncopated-burst` | `transition.morph-dock`, `slide-in-up` | `0.4s – 0.6s` |
+| **`logo-reveal-sting`** | Brand Ident & Logo Sting | Signature brand mark ignition, optical reveal | `Mark` | `adagio` / `triplet-accent` | `effects.light-sweep`, `effects.glow-flare` | `0.8s – 1.2s` |
+| **`hardware-3d-showcase`**| 2.5D/3D Hardware Tour | Hardware specs, 3D orbit, depth plane layering | `Material` | `adagio` / `moderato` | `camera.dolly-in`, `transition.orbit-axial-flip`| `0.8s – 1.0s` |
+| **`social-story-reel`** | 9:16 Vertical Story | High-velocity hook, thumb-stopping vertical reveal | `Type` / `UI` | `allegro` / `staccato` | `transition.whip-pan`, `scale-pop` | `0.3s – 0.5s` |
+| **`lower-thirds-overlay`**| Keynote & Broadcast HUD | Speaker name badge, streaming status HUD | `UI / Product` | `moderato` / `staccato-resolve` | `clip-reveal-left`, `vector.minimal-line-wipe` | `1.5s – 3.0s` |
+| **`isometric-flowchart`**| Architecture & Node Piping| Cloud data piping, server flow, network nodes | `Grid / Architecture`| `moderato` / `polyrhythmic-offset` | `vector.path-follow`, `particles.directional-flow` | `0.6s – 0.8s` |
+| **`liquid-asset-morph`** | Fluid Asset Transformation | Organic shape shifting, brand asset deformation | `Fluid / Liquid`| `slow` / `adagio` | `liquid.blob-morph`, `liquid.surface-tension-merge` | `0.6s – 0.8s` |
+| **`onboarding-carousel`**| Guided Card Carousel | Multi-step interactive onboarding walkthrough | `UI / Product` | `velocity_gesture` | `physics.hysteresis-settle`, `transition.morph-dock` | `User-driven` |
+| **`celebration-burst`** | Gamification & Reward | Achievement unlock, badge pop, celebratory burst | `Material` | `allegro` / `syncopated-burst` | `particles.radial-burst`, `scale-pop` | `0.6s – 0.8s` |
 
 ---
 
