@@ -30,12 +30,20 @@ Every animated scene produced by `motion-director` must satisfy these foundation
      $$\text{Overshoot } (60\%) \longrightarrow \text{Rebound } (20\%) \longrightarrow \text{Micro-Settle } (3\%) \longrightarrow \text{Locked Rest}$$
 7. **Spatial Arcs & G2 Curvature Continuity:**
    - Organic motion never travels along robotic diagonal vectors. Trajectories follow natural gravitational curves (`arc-convex` or `arc-concave`) with **G2 Curvature Continuity** (continuous acceleration derivative across path joins, zero radial jerk).
-8. **Asymmetric Easing:**
+8. **Harmonic Oscillation & Damping Ratio ($\zeta$):**
+   - Every physical spring must declare its dimensionless damping ratio ($\zeta$):
+     - **Underdamped ($\zeta = 0.70$):** High-energy punch, subtle tactile overshoot.
+     - **Critically Damped ($\zeta = 1.00$):** Fastest possible arrival with zero overshoot (UI cards, modal dialogs).
+     - **Overdamped ($\zeta = 1.40$):** Heavy viscous settling for massive luxury hero objects.
+9. **Dynamic Contact Shadows & Elevation Physics:**
+   - As an object rises along the Z-axis, its shadow expands in radius and diffuses in opacity ($Z \uparrow \implies \text{radius} \uparrow,\; \text{alpha} \downarrow$).
+   - Upon landing, the shadow pinches into a tight, dark contact line (`contact-shadow-pinch`).
+10. **Asymmetric Easing:**
    - `linear` interpolation is banned except for infinite ambient cycles or raw progress bars.
    - Organic motion requires asymmetric curves: aggressive acceleration (`ease-in`) paired with a long, gentle deceleration/settle (`ease-out`), or mass-damped springs.
-9. **Follow-Through & Overlapping Action:**
+11. **Follow-Through & Overlapping Action:**
    - Elements never lock into place on the exact same frame. Secondary layers, attached badges, shadows, and text settle with a 50–150ms delay/offset relative to the primary hero.
-10. **Settle & Negative Time:**
+12. **Settle & Negative Time:**
    - Elements do not hit target values like a brick wall; they decelerate smoothly into a rest state (`decay`).
    - Every completed action must include intentional negative time (**0.3s – 0.8s hold**) allowing the viewer to absorb the message before the next beat begins.
 

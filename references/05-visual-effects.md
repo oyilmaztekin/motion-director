@@ -92,3 +92,30 @@ In physical optics, distant planes undergo **Rayleigh Scattering**—shifting to
 - **`blur-disabled` (Crisp UI, 0° Shutter):** Mandatory for UI micro-interactions, text reading, buttons.
 - **`shutter-180` (Cinematic, 180° Shutter):** Standard motion blur for scene transitions and 3D pans.
 - **`shutter-360` (Hyper-Speed, 360° Shutter):** Extreme streak blur for warp transitions.
+
+---
+
+## 10. Multiplane Parallax Depth Speed Ratios
+
+When the camera dollies or pans, layer velocity scales inversely with optical distance:
+
+| Depth Plane | Z-Translation | Parallax Velocity Multiplier | Visual Role |
+| :--- | :--- | :--- | :--- |
+| **`plane-foreground`** | `Z: +100px` | $v_{\text{fg}} = 1.80 \cdot v_{\text{camera}}$ | Floating micro-particles, bokeh elements |
+| **`plane-hero`** | `Z: 0px` | $v_{\text{hero}} = 1.00 \cdot v_{\text{camera}}$ | Primary content payload (Focal Anchor) |
+| **`plane-midground`** | `Z: -100px` | $v_{\text{mid}} = 0.55 \cdot v_{\text{camera}}$ | Secondary cards, layout grid lines |
+| **`plane-background`**| `Z: -300px` | $v_{\text{bg}} = 0.20 \cdot v_{\text{camera}}$ | Ambient depth fog, distant typography |
+| **`plane-deep`** | `Z: -800px` | $v_{\text{deep}} = 0.05 \cdot v_{\text{camera}}$| Horizon gradient, atmospheric haze |
+
+---
+
+## 11. Dynamic Contact Shadow Pinch & Elevation
+
+- **Contact Pinch (`shadow-contact-pinch`):** Zero offset, `0px 2px 4px rgba(0,0,0,0.5)`, tight hard edge on surface contact.
+- **Floating Elevation (`shadow-elevation-air`):** Dynamic expansion `0px 24px 48px rgba(0,0,0,0.18)` as $Z$ increases.
+
+---
+
+## 12. Gradient Dither & OLED Anti-Banding Guard
+
+- Smooth color ramps across dark backgrounds must inject dynamic monochromatic noise (`dither-grain-subtle`, 2% opacity) to eliminate 8-bit banding artifacts on high-contrast OLED displays.

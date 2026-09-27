@@ -150,6 +150,7 @@ layers:
       type: "whoosh"
       cue: "sfx-whoosh"
       frequency_band: "mid-snap"
+      mix_stem: "stem-foley-ui"
       at: 0ms
     reduced_motion:
       fallback: "entrance.fade-in"
@@ -159,6 +160,7 @@ layers:
     element: "div.metric-card"
     z: 20
     depth_plane: "midground"
+    parallax_multiplier: 0.55
     matter: "Data"
     transform_origin: "origin-bottom-center"
     spatial_path: "arc-convex"
@@ -174,6 +176,9 @@ layers:
     properties:
       translateY: { from: "var(--spatial-large)", to: "0px" }
       opacity: { from: 0, to: 1 }
+    shadow:
+      contact_pinch: true
+      elevation_falloff: "shadow-elevation-air"
     effects:
       - type: "effects.light-sweep"
         angle: "135deg"
@@ -186,6 +191,7 @@ layers:
     physics:
       momentum_transfer: { target: "div.adjacent-badge", recoil: "-6px" }
       hysteresis_damping: "natural-asymmetric"
+      damping_ratio: 0.70 # Underdamped punch
     camera:
       dolly_z: { from: 0, to: "40px" }
       fov: "lens-cine-35"
@@ -197,6 +203,7 @@ layers:
       type: "swell"
       cue: "sfx-riser"
       frequency_band: "high-air"
+      mix_stem: "stem-foley-ui"
       at: 1000ms
     reduced_motion:
       fallback: "entrance.fade-in"
@@ -206,6 +213,7 @@ layers:
     element: "canvas.particles"
     z: 30
     depth_plane: "foreground"
+    parallax_multiplier: 1.80
     blend_mode: "blend-screen"
     atom: "particles.radial-burst"
     timing:
@@ -219,6 +227,7 @@ layers:
       type: "impact"
       cue: "sfx-sub"
       frequency_band: "low-sub"
+      mix_stem: "stem-sfx-hero"
       at: 2400ms
       ducking: "-6dB"
     reduced_motion:

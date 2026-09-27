@@ -82,3 +82,25 @@ Idle sine wave loops (breathe, float, drift) are **STRICTLY BANNED**. Every span
 ## 8. Stillness Before Climax (The Dramatic Comma)
 
 Before any major climax, transformation, or punchline, insert a **0.3s – 0.75s deliberate pause**.
+
+---
+
+## 9. Whip Cut Vector Angle Matching
+
+When utilizing high-velocity whip transitions across scenes:
+- Exit trajectory angle must match entry trajectory angle:
+  $$\theta_{\text{exit}} = \theta_{\text{entry}} \pm 0.0^{\circ}$$
+- Motion blur streak orientation in Scene A must seamlessly align with Scene B entrance streaks to prevent visual disorientation.
+
+---
+
+## 10. Audio Mix Stem Architecture & Dynamic Headroom
+
+Audio choreography must designate sound events into discrete mix stems:
+
+| Mix Stem | Dynamic Priority | Typical Elements | Headroom Policy |
+| :--- | :--- | :--- | :--- |
+| **`stem-vo`** | Highest (0dB reference) | Voiceover claim lines, spoken narrative | Sits on top; triggers -6dB ducking on all other stems |
+| **`stem-sfx-hero`** | High (-2dB) | Climax sub-bass hits (`sfx-sub`), impact punches | Uncompressed transients; ducks ambient bed |
+| **`stem-foley-ui`** | Medium (-8dB) | Micro-clicks, card flips, variable font ticks | Crisp high-air transient; zero low-end mud |
+| **`stem-bed-atmos`**| Low (-14dB to -20dB) | Continuous drone, atmospheric room tone | Dynamically ducks during VO and hero impacts |
