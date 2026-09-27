@@ -50,7 +50,7 @@ The eye follows physical objects, not abstract dissolves. The strongest scene tr
 - A hero mark or word group expanding to become the next scene's header.
 - **Never use crossfades as a lazy default**—crossfades have zero carrier continuity.
 
-### Causal Motion (Nedensellik)
+### Causal Motion (Action & Reaction Chain)
 Chain movements so each action visibly triggers the next:
 - `Click → Squash → Spring Release → Flight → Impact → Recoil → Reveal`.
 - Reactions must ignite on the **exact causing frame**, not with an awkward delay.

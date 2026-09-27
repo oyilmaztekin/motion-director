@@ -8,31 +8,31 @@ This document establishes the foundation of the project's motion identity, matte
 
 Every animated scene produced by `motion-director` must satisfy these foundational laws:
 
-1. **Staging & Single Focal Anchor (Tek Odak):**
+1. **Staging & Single Focal Anchor:**
    - Every frame has exactly ONE primary focal point (anchor). Visual hierarchy, secondary elements, and camera framing exist solely to guide the eye toward it.
-2. **Motion Density Budget (Görsel Yoğunluk Bütçesi):**
+2. **Motion Density Budget:**
    - At any given timestamp, the composition may contain:
      - **At most ONE High-Energy Hero Action** (e.g., major card entrance, hero title reveal, dramatic camera push).
      - **At most TWO Low-Energy Secondary Actions** (e.g., subtle particle drift, specular light sheen, background counter tick).
    - Violating this budget causes cognitive visual fatigue.
-3. **Anticipation & Volume Conservation (Squash & Stretch Hacim Yasası):**
+3. **Anticipation & Volume Conservation (Squash & Stretch Law):**
    - Major actions must be preceded by a micro counter-momentum or compression.
    - **Conservation of Volume:** When an object compresses or stretches, its 2D area/volume must remain constant:
      $$\text{scaleX} \times \text{scaleY} \approx 1.0$$
-4. **Spatial Arcs (Kavisli Yörüngeler):**
+4. **Spatial Arcs:**
    - Organic motion never travels along robotic diagonal vectors. Trajectories follow natural gravitational/momentum curves (`arc-convex` or `arc-concave`). Linear paths (`direct-axis`) are reserved for rigid mechanical UI rails.
-5. **Asymmetric Easing (Asimetrik Eğriler):**
+5. **Asymmetric Easing:**
    - `linear` interpolation is banned except for infinite ambient cycles or raw progress bars.
    - Organic motion requires asymmetric curves: aggressive acceleration (`ease-in`) paired with a long, gentle deceleration/settle (`ease-out`), or mass-damped springs.
-6. **Follow-Through & Overlapping Action (Kademeli Tamamlanma):**
+6. **Follow-Through & Overlapping Action:**
    - Elements never lock into place on the exact same frame. Secondary layers, attached badges, shadows, and text settle with a 50–150ms delay/offset relative to the primary hero.
-7. **Settle & Negative Time (Sindirme & Dinlenme):**
+7. **Settle & Negative Time:**
    - Elements do not hit target values like a brick wall; they decelerate smoothly into a rest state (`decay`).
    - Every completed action must include intentional negative time (**0.3s – 0.8s hold**) allowing the viewer to absorb the message before the next beat begins.
 
 ---
 
-## 2. Transform Origin Standard Library (Eksen Noktası)
+## 2. Transform Origin Standard Library
 
 Every scaling, rotating, or morphing element MUST declare its transform anchor point:
 
@@ -47,7 +47,7 @@ Every scaling, rotating, or morphing element MUST declare its transform anchor p
 
 ---
 
-## 3. Blend Modes & Layer Fusion (Katman Füzyonu)
+## 3. Blend Modes & Layer Fusion
 
 Layers blend organically into backgrounds rather than appearing as flat stickers:
 
