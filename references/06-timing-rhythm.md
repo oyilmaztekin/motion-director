@@ -1,52 +1,60 @@
-# 06 Timing, Rhythm, Rhythmic Syncopation & Seam Continuity
+# 06 Timing, Rhythm, Audio Ducking & Seam Continuity
 
-This document establishes the timing architecture, musical cadence & syncopation, audio/SFX hit point synchronization, seam continuity laws (cross-scene cuts), sustained motion rules, and loop seam physics.
+This document establishes the timing architecture, non-linear stagger falloffs, audio ducking, musical cadence, seam continuity laws, sustained motion rules, and loop seam physics.
 
 ---
 
-## 1. Rhythmic Syncopation & Musical Cadence (Musical Motion)
+## 1. Non-Linear Stagger Falloff Distributions
 
-Mechanical timing spaces elements in uniform, predictable increments (e.g., 100ms, 200ms, 300ms). Elite motion design employs **musical syncopation**—accenting unexpected beats and creating phrasing:
+Uniform linear spacing ($delay = i \times s$) causes mechanical rigidity. Master choreographies employ curved stagger distributions:
 
-| Cadence Scheme | Timing Structure | Narrative Feel |
+| Stagger Curve | Formula | Visual Dynamic |
 | :--- | :--- | :--- |
-| **`syncopated-burst`** | `Fast (120ms) → Fast (120ms) → Deliberate Hold (400ms) → Heavy Payoff (600ms)` | Punchy tech stings, kinetic claims |
-| **`polyrhythmic-offset`**| Primary layer on 3-beat rhythm; background accents on 2-beat counterpoint | Sophisticated SaaS dashboards, data viz |
-| **`triplet-accent`** | `Short → Short → Long` (`60ms - 60ms - 240ms`) with accent on the 3rd unit | Typographic word staggers, feature badges |
-| **`staccato-resolve`** | Rapid crisp snaps followed by an elongated, weighted deceleration | UI modal arrivals, menu unfurls |
+| **`stagger-linear`** | $d_i = i \cdot s$ | Predictable sequential cascades |
+| **`stagger-exponential`**| $d_i = \text{base} \cdot (1.20)^i$ | Fast initial cluster decelerating into a relaxed tail |
+| **`stagger-gaussian`** | $d_i = d_{\text{max}} \cdot \exp\left(-\frac{(i - c)^2}{2\sigma^2}\right)$ | Symmetrical ripple fanning out from the focal anchor |
+| **`stagger-fibonacci`** | $d_i = F(i) \cdot s$ | Organic golden-ratio acceleration |
 
 ---
 
-## 2. Seamless Loop Physics (The Zero-Velocity Hitch Law)
+## 2. Rhythmic Syncopation & Musical Cadence
 
-For `Piece Type: Loop` (e.g., ambient hero backgrounds, continuous loaders, Rive state loops), the loop boundary must be mathematically imperceptible:
-
-$$\vec{v}_{\text{exit}}(\text{Frame } N) = \vec{v}_{\text{entry}}(\text{Frame } 0)$$
-
-1. **Velocity Derivative Continuity:** The motion must not decelerate to zero and restart abruptly at the loop seam unless it represents an intentional stop-and-go cycle.
-2. **Phase Boundary Matching:** Property values at `t = 0.0s` and `t = total_duration` must be identical, with the easing curve slope matched across the boundary.
+- **`syncopated-burst`:** `Fast (120ms) → Fast (120ms) → Deliberate Hold (400ms) → Heavy Payoff (600ms)`.
+- **`polyrhythmic-offset`:** Primary layer on 3-beat rhythm; background accents on 2-beat counterpoint.
+- **`triplet-accent`:** `Short → Short → Long` (`60ms - 60ms - 240ms`) with accent on the 3rd unit.
+- **`staccato-resolve`:** Rapid crisp snaps followed by an elongated, weighted deceleration.
 
 ---
 
-## 3. Audio & Sonic Hit Synchronization (Sonic Motion)
+## 3. Audio Frequency Ducking & Sonic Hit Sync
 
-Sound and vision are co-dependent: audio provides weight and tactical clarity to visual keyframes.
+### A. Dynamic Acoustic Ducking
+During major visual and sonic impacts (hero `sfx-sub` or crucial VO claim line), background ambient audio and micro-ticks MUST be dynamically ducked:
+$$\text{ambient\_audio\_volume} \mathrel{-}= 6\text{dB}\quad (\text{attack: } 40\text{ms},\; \text{release: } 300\text{ms})$$
 
-### Sonic Hit Rules:
+### B. Sonic Hit Rules
 1. **Zero Audio Lag:** SFX triggers must land on the **exact frame** of initial visual contact, impact, or trigger ignition.
-2. **Audio Cue Types:**
+2. **Audio Cue Tokens:**
    - **`whoosh` / `air-rush`:** Attached to high-velocity seam transitions along the Current.
    - **`impact` / `sub-bass`:** Triggered when the hero focal anchor locks into its final resting position.
    - **`click` / `mechanical-tick`:** Triggered upon state changes (`pressed`, `toggle`).
    - **`riser` / `tension-swell`:** Placed during Anticipation (recoil) leading up to a major climax.
    - **`chime` / `resolution`:** Triggered on completion of a data count-up or goal achievement.
-3. **Voiceover (VO) Pacing:** If a voiceover track is present, scene keyframes and word reveals must lock to actual word timestamp boundaries, not arbitrary slots.
 
 ---
 
-## 4. The Seam Law & Continuity (Inter-Scene Transitions)
+## 4. Seamless Loop Physics (The Zero-Velocity Hitch Law)
 
-A multi-scene animation must feel like **ONE continuous flow**, not a disconnected stack of slides.
+For `Piece Type: Loop` (e.g., ambient hero backgrounds, continuous loaders, Rive state loops), the loop boundary must be mathematically imperceptible:
+
+$$\vec{v}_{\text{exit}}(\text{Frame } N) = \vec{v}_{\text{entry}}(\text{Frame } 0)$$
+
+1. **Velocity Derivative Continuity:** Motion must not decelerate to zero and restart abruptly at the loop seam.
+2. **Phase Boundary Matching:** Property values at `t = 0.0s` and `t = total_duration` must be identical with slope-matched easing curves.
+
+---
+
+## 5. The Seam Law & Continuity (Inter-Scene Transitions)
 
 ### The Vector Law
 > **How Scene A exits dictates how Scene B enters:** same axis, same direction, matched velocity, cut mid-motion on both sides.
@@ -54,60 +62,23 @@ A multi-scene animation must feel like **ONE continuous flow**, not a disconnect
 1. **Axis Continuity:** X stays X, Y stays Y, Z stays Z. Never switch axes abruptly at a cut.
 2. **Directional Continuity:** Never mirror direction. If Scene A exits to the left, Scene B enters from the right moving left.
 3. **Speed Matching (`Cut-The-Curve`):** Exit final velocity ≈ Entry initial velocity. Scene B enters at ≥50% through its notional path rather than starting from a dead stop.
-4. **Zero Dead Beats:** The cut occurs mid-motion on both sides. Do not wait for Scene A to fully stop before Scene B starts.
+4. **Zero Dead Beats:** The cut occurs mid-motion on both sides.
 
 ### Concrete Carriers
-The eye follows physical objects, not abstract dissolves. The strongest scene transitions pass a **concrete carrier** across the cut:
-- A floating card docking into the next scene's grid.
-- An interactive cursor clicking an element and leading the eye into the new viewport.
-- A hero mark or word group expanding to become the next scene's header.
-- **Never use crossfades as a lazy default**—crossfades have zero carrier continuity.
+The eye follows physical objects, not abstract dissolves. Strongest transitions pass a **concrete carrier** across the cut (floating card, cursor, hero word group). **Never use crossfades as a lazy default.**
 
 ### Causal Motion (Action & Reaction Chain)
-Chain movements so each action visibly triggers the next:
-- `Click → Squash → Spring Release → Flight → Impact → Recoil → Reveal`.
-- Reactions must ignite on the **exact causing frame**, not with an awkward delay.
+`Click → Squash → Spring Release → Flight → Impact → Recoil → Reveal`. Reactions ignite on the exact causing frame.
 
 ---
 
-## 5. No Idle Wobble & Sustained Motion Routes
+## 6. No Idle Wobble & Sustained Motion Routes
 
-Idle sine wave loops (breathe, float, drift, pulsing glow to fill time) are **STRICTLY BANNED** as sustained motion. They signal to the viewer that the animation has stalled.
-
-Every duration between entrance and exit must be assigned one of these **Sustained Motion Routes**:
-
-| Route | Mechanism | When to Use |
-| :--- | :--- | :--- |
-| **Staged Reveals** | Information is held back and revealed in rhythm with narration/reading beats. | Multi-bullet lists, feature cards |
-| **Camera with Intent** | Mapped pan/zoom path: Establish wide → Travel → Arrive on detail. | Large dashboards, spatial canvas |
-| **Sequenced UI Life** | Product behaves realistically: Progress advances, counter ticks, tabs switch. | Product demos, SaaS workflows |
-| **Animated Sequences** | Physical assembly: Cards stack, items sort, graph lines draw. | Data stories, infographics |
-| **Cursor-Led Action** | A cursor guides the eye to an interactive trigger, igniting the next beat. | UI tutorials, interactive previews |
+Idle sine wave loops (breathe, float, drift) are **STRICTLY BANNED**. Every span between entrance and exit is owned by a purposeful route:
+- **Staged Reveals** · **Camera with Intent** · **Sequenced UI Life** · **Animated Sequences** · **Cursor-Led Action**
 
 ---
 
-## 6. Orchestration Modes
-
-1. **Sequential:** Unit B starts only when Unit A completes (`delayB = delayA + durationA`).
-2. **Overlapping (Standard):** Unit B starts when Unit A is at **60–70% completion**.
-3. **Parallel:** Units A and B launch on the same frame with distinct durations/curves.
-4. **Cascade / Stagger:** Sequential delay added per item in a collection (`30–80ms`).
-
----
-
-## 7. Tempo Classifications
-
-| Tempo | Character | Duration Scale | Stagger Scale | Target Application |
-| :--- | :--- | :--- | :--- | :--- |
-| `staccato` | Sharp, snappy | `100–200ms` | `30–50ms` | Micro-interactions, toggles, icon flips |
-| `allegro` | Energetic, crisp | `200–350ms` | `50–80ms` | Interactive apps, kinetic typography |
-| `moderato` | Balanced, readable | `350–500ms` | `80–120ms` | Standard landing pages, explainer videos |
-| `adagio` | Cinematic, luxurious | `500–800ms` | `120–200ms` | Luxury brand showcases, hero openers |
-| `glacial` | Ambient evolution | `2000ms+` | None | Background shaders, depth atmosphere |
-
----
-
-## 8. Stillness Before Climax (The Dramatic Comma)
+## 7. Stillness Before Climax (The Dramatic Comma)
 
 Before any major climax, transformation, or punchline, insert a **0.3s – 0.75s deliberate pause**.
-This stillness creates anticipation, focuses the viewer's gaze, and amplifies the impact of the payoff.

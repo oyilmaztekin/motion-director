@@ -33,7 +33,7 @@ This document defines the definitive deliverable template produced by `motion-di
 2. **Signature Climax Frame ([t]s — The Payoff):**
    - *Composition:* [The peak moment of transformation or reveal]
    - *Optical Event:* [Primary optical event / specular sheen / chromatic split]
-   - *Sonic Hit:* [Corresponding audio cue]
+   - *Sonic Hit & Ducking:* [Corresponding audio cue + ducking level]
 3. **Final Settle Hold ([total]s — The Resting State):**
    - *Composition:* [The final resolved layout and CTA during the terminal hold]
 
@@ -41,11 +41,11 @@ This document defines the definitive deliverable template produced by `motion-di
 
 ## 2. Beat-by-Beat Choreography & Sonic Table
 
-| Beat | Timestamp | Still Composition & Safe Zone | Motion, Atom & Camera | Origin & Path | Blend / FX | Carrier Across Seam | Audio / SFX Cue | Hold / Negative Time | Narrative Why |
+| Beat | Timestamp | Still Composition & Safe Zone | Motion, Atom & Camera | Origin & Path | Blend & Fog | Carrier Across Seam | Audio Cue & Ducking | Hold / Negative Time | Narrative Why |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **01** | `0.0s - 0.6s` | Ground established, Hero headline | `clip-reveal-left` [Settle] | `origin-left-center`<br>`direct-axis` | `blend-normal` | Headline text line | `sfx-whoosh` (air rush) | `0.4s hold` | Establish core claim |
+| **01** | `0.0s - 0.6s` | Ground established, Hero headline | `clip-reveal-left` [Settle] + `type.tracking-breath` | `origin-left-center`<br>`direct-axis` | `blend-normal` | Headline text line | `sfx-whoosh` (air rush) | `0.4s hold` | Establish core claim |
 | **02** | `1.0s - 1.8s` | Data card emerges (Midground) | `slide-in-up` [Anticipation] + `camera.dolly-in` | `origin-bottom-center`<br>`arc-convex` | `effects.light-sweep`<br>`blend-overlay` | Card border | `sfx-riser` (tension) | `0.6s hold` | Evidence payload |
-| **03** | `2.4s - 3.2s` | Metric counts to 99% + Burst | `counter-up` + `particles.radial-burst` | `origin-center`<br>`volume-preserve` | `blend-screen`<br>`chromatic-split` | Signal accent ring | `sfx-sub` (bass hit) | `0.8s hold` | Climax payoff |
+| **03** | `2.4s - 3.2s` | Metric counts to 99% + Burst | `counter-up` + `physics.momentum-transfer` | `origin-center`<br>`volume-preserve` | `blend-screen`<br>`depth-fog-cool` | Signal accent ring | `sfx-sub` (-6dB ducking) | `0.8s hold` | Climax payoff |
 
 ---
 
@@ -62,10 +62,10 @@ This document defines the definitive deliverable template produced by `motion-di
 
 ```text
 [0.0s] ───|-- ground/bg (continuous) ----------------------------------->|
-[0.0s]    |-- headline [0.6s clip-reveal] --[0.4s hold]--|
+[0.0s]    |-- headline [0.6s clip-reveal + breath] --[0.4s hold]--|
 [1.0s]          |-- data-card [0.8s slide-in + dolly] --[0.6s hold]--|
 [2.4s]                |-- metric-counter [0.8s count + burst] --[0.8s final hold]--|
-[Audio]   [whoosh @0.0s] ───────── [riser @1.0s] ─────── [sub-bass @2.4s]
+[Audio]   [whoosh @0.0s] ───────── [riser @1.0s] ─────── [sub-bass @2.4s (duck -6dB)]
 ```
 
 ---
@@ -123,8 +123,9 @@ layers:
       opacity: { from: 0, to: 1 }
     text_treatment:
       level: "line"
-      stagger: { type: "from-start", amount: 60ms }
+      stagger: { type: "from-start", amount: 60ms, curve: "stagger-exponential" }
       variable_font: { axis: "wght", from: 300, to: 800 }
+      tracking_breath: { in_flight: "0.06em", at_rest: "-0.02em" }
     audio_cue:
       type: "whoosh"
       cue: "sfx-whoosh"
@@ -160,6 +161,8 @@ layers:
     anticipation:
       recoil: { translateY: "4px", scaleY: 0.95, scaleX: 1.05 } # Volume preserved
       duration: "fast"
+    physics:
+      momentum_transfer: { target: "div.adjacent-badge", recoil: "-6px" }
     camera:
       dolly_z: { from: 0, to: "40px" }
       fov: "lens-cine-35"
@@ -191,6 +194,7 @@ layers:
       type: "impact"
       cue: "sfx-sub"
       at: 2400ms
+      ducking: "-6dB"
     reduced_motion:
       fallback: "none"
 ```

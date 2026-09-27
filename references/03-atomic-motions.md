@@ -8,6 +8,7 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 - **Single Anchor Law:** Only ONE primary atom in a scene carries maximum energy.
 - **Anticipation & Volume Conservation:** Atoms marked `[Anticipation]` execute a 50–100ms micro-recoil with volume preservation ($\text{scaleX} \times \text{scaleY} \approx 1.0$).
+- **Momentum Transfer & Elastic Restitution:** High-mass impacts transfer energy to adjacent low-mass elements, causing a proportional secondary recoil ($m_1 v_1 = m_2 v_2$).
 - **Settle Integration:** Atoms marked `[Settle]` execute a 100–200ms damped deceleration into rest.
 - **Spatial Trajectory:** Diagonal and multi-axis transitions follow `arc-convex` or `arc-concave` paths by default.
 - **Transform Origin Declaration:** Every scaling/rotating atom must declare its origin (`origin-center`, `origin-bottom-center`, etc.).
@@ -37,7 +38,16 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 3. Particle & Emitter Dynamics
+## 3. Physics & Momentum Transfer Atoms
+
+| Atom Name | Description | Key Physics Properties | Default Duration | Easing | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `physics.momentum-transfer` | Heavy hero impact launches adjacent micro-elements | `recoilY: -8px → 0px`, `mass_ratio: 0.2` | `fast` | `spring-snappy` | Low |
+| `physics.elastic-restitution`| Surface rebound based on elasticity ($e = 0.75$) | `translateY: impact → recoil → rest` | `fast` | `spring-bouncy` | Low |
+
+---
+
+## 4. Particle & Emitter Dynamics
 
 | Atom Name | Description | Key Physics Properties | Default Duration | Easing | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -47,7 +57,7 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 4. Optical & Specular Light Atoms
+## 5. Optical & Specular Light Atoms
 
 | Atom Name | Description | Key Optical Properties | Default Duration | Easing | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -56,17 +66,18 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 5. Typographic & Variable Font Atoms
+## 6. Typographic & Variable Font Atoms
 
 | Atom Name | Description | Key Properties (`from → to`) | Default Duration | Default Easing | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `type.weight-morph` | Smooth optical weight transition | `font-variation-settings: 'wght' 200 → 800` | `normal` | `ease-out-expo` | Low |
 | `type.width-stretch` | Dynamic kinetic width reveal | `font-variation-settings: 'wdth' 75 → 125` | `slow` | `ease-out-expo` | Low |
 | `type.slant-snap` | Expressive italic emphasis | `font-variation-settings: 'slnt' 0 → -12` | `fast` | `spring-snappy` | Low |
+| `type.tracking-breath` | Expands tracking in-flight, tightens on lock | `letter-spacing: +0.06em → -0.02em` | `normal` | `ease-out-expo` | Low |
 
 ---
 
-## 6. Camera & Spatial 3D Atoms
+## 7. Camera & Spatial 3D Atoms
 
 | Atom Name | Description | Key Spatial Properties | Default Duration | Default Easing | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -77,7 +88,7 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 7. Emphasis & Squash Atoms
+## 8. Emphasis & Squash Atoms
 
 | Atom Name | Description | Key Properties | Default Duration | Default Easing | Reduced Motion Fallback | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -90,7 +101,7 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 8. Exit Atoms (Elements leaving the scene)
+## 9. Exit Atoms (Elements leaving the scene)
 
 | Atom Name | Description | Key Properties | Default Duration | Default Easing | Reduced Motion Fallback | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -102,7 +113,7 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 9. Transition & Vector Morph Atoms
+## 10. Transition & Vector Morph Atoms
 
 | Atom Name | Description | Key Properties | Default Duration | Default Easing | Continuity Role |
 | :--- | :--- | :--- | :--- | :--- | :--- |

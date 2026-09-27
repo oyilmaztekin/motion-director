@@ -1,19 +1,22 @@
-# 04 Text Treatments & Variable Typography Choreography
+# 04 Text Treatments, Variable Fonts & Kinetic Tracking
 
-Text is the primary carrier of direct conceptual meaning. This document defines typographic decomposition, Variable Font axis interpolations, stagger choreography, reading economics, and audio synchronization.
+Text is the primary carrier of direct conceptual meaning. This document defines typographic decomposition, Variable Font axis interpolations, non-linear stagger falloffs, kinetic tracking breathing, reading economics, and audio synchronization.
 
 ---
 
-## 1. Variable Font Axis Morphing (Modern Kinetic Typography)
+## 1. Variable Font Axis Morphing & Tracking Kinetics
 
-When using Variable Fonts, animate intrinsic type axes instead of generic scaling or stretching:
-
+### A. Intrinsic Font Axis Morphs
 | Axis | Tag | Range | Narrative Purpose | Easing |
 | :--- | :--- | :--- | :--- | :--- |
 | **Weight** | `'wght'` | `100 → 900` | Building authority, stress emphasis, crescendo | `ease-out-expo` |
 | **Width** | `'wdth'` | `75% → 125%` | Expanding impact, panoramic reveal | `ease-out-expo` |
 | **Slant / Italic** | `'slnt'` | `0° → -12°` | Kinetic urgency, speed, forward momentum | `spring-snappy` |
 | **Optical Size** | `'opsz'` | `8 → 144` | Dynamic focal shifts between micro-label and hero | `ease-out-cubic` |
+
+### B. Kinetic Tracking Breathing
+- In flight, character spacing opens organically: `letter-spacing: +0.06em → +0.08em`.
+- On final impact/settle, tracking snaps into a crisp, compressed lock: `letter-spacing: -0.02em`.
 
 ---
 
@@ -28,13 +31,26 @@ When using Variable Fonts, animate intrinsic type axes instead of generic scalin
 
 ---
 
-## 3. Text Pattern Library
+## 3. Non-Linear Stagger Falloff Curves
+
+Linear stagger delay ($d = i \times s$) feels mechanical. Use curved falloff distributions:
+
+| Falloff Scheme | Calculation Formula | Visual Rhythm |
+| :--- | :--- | :--- |
+| **`stagger-linear`** | `delay = index * stagger` | Standard uniform list cascades |
+| **`stagger-exponential`**| `delay = base * (1.18 ^ index)` | Rapid initial burst settling into a calm trail |
+| **`stagger-gaussian`** | `delay = maxDelay * exp(-((index - center)^2) / (2 * sigma^2))` | Symmetrical wave rippling out from focal center |
+
+---
+
+## 4. Text Pattern Library
 
 | Pattern | Decomposition | Key Properties (`from → to`) | Easing Token | Duration Token | Stagger Default |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Mask Reveal (Overflow)** | Line | Parent: `overflow: hidden`<br>Child: `translateY: 110% → 0%`, `opacity: 0 → 1` | `ease-out-expo` | `slow` | `from-start` (80ms) |
 | **Mask Reveal (Clip)** | Line / Block | `clip-path: inset(100% 0 0 0) → inset(0)` | `ease-out-expo` | `slow` | `from-start` (60ms) |
 | **Variable Weight Pulse** | Word / Line | `font-variation-settings: 'wght' 300 → 800` | `ease-out-expo` | `normal` | `from-start` (40ms) |
+| **Tracking Breath Lock** | Word / Line | `letter-spacing: 0.08em → -0.02em`, `opacity: 0 → 1` | `ease-out-expo` | `slow` | `from-start` (50ms) |
 | **Slide & Settle** | Word / Line | `translateY: 20px → 0`, `opacity: 0 → 1` | `ease-out-cubic` | `normal` | `from-start` (40ms) |
 | **Split & Converge** | Word / Char | `translateX: offset → 0`, `scale: 0.9 → 1`, `opacity: 0 → 1` | `spring-gentle` | `slow` | `from-center` (50ms) |
 | **Typewriter Stepped** | Char | `visibility: hidden → visible` | `steps(1)` | `fast` per char | `from-start` (35ms) |
@@ -43,16 +59,9 @@ When using Variable Fonts, animate intrinsic type axes instead of generic scalin
 
 ---
 
-## 4. Reading Economics & The Dramatic Comma
+## 5. Reading Economics & Audio Sync
 
 1. **Reading Speed Budget:** Allocate at least **200–250ms per word** for comfortable human comprehension.
 2. **The Dramatic Comma (Settle Hold):** Once the complete headline or claim is revealed, enforce a **minimum 0.5s – 1.0s static hold** before any secondary transition or scene cut occurs.
 3. **Never Animate While Reading:** Do not apply continuous wobble, pulse, or drift to body text while the user is meant to read it.
-
----
-
-## 5. Orchestration & Audio Accents
-
-1. **Containers First:** Background cards or framing lines must reach ≥60% completion before text entrance begins.
-2. **Text Leads Action:** The message lands before the CTA button appears.
-3. **Audio Hit on Hero Word:** Trigger a subtle `sfx-click` or `sfx-whoosh` exactly as the primary emphasis word locks into place.
+4. **Audio Hit on Hero Word:** Trigger a subtle `sfx-click` or `sfx-whoosh` exactly as the primary emphasis word locks into place.

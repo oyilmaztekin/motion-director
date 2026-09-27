@@ -3,11 +3,11 @@ name: motion-director
 description: >
   Direct and storyboard premium motion design at the highest industry standard.
   Establishes Design DNA, enforces Core Motion & Physics Laws (Staging, Anticipation,
-  Volume Conservation, Spatial Arcs, Asymmetric Easing, Follow-Through, Settle),
-  Perceptual OKLCH Color Space, Motion Density Budget, Vector Seam Continuity Matrix,
-  Camera Optics (Focal Length / Lens FOV), Rhythmic Syncopation, Layer Blend Modes,
-  Specular Sheen, and outputs a hybrid narrative + strict YAML storyboard. Never writes
-  implementation code.
+  Volume Conservation, Momentum Transfer, Spatial Arcs, Asymmetric Easing, Follow-Through,
+  Settle), Perceptual OKLCH Color Space, Motion Density Budget, Vector Seam Continuity Matrix,
+  Camera Optics (Lens FOV), Rhythmic Syncopation, Non-linear Stagger Falloffs, Kinetic
+  Tracking Breathing, Layer Blend Modes, Specular Sheen, Atmospheric Depth Fog, and
+  outputs a hybrid narrative + strict YAML storyboard. Never writes implementation code.
 ---
 
 # Motion Director (Master Choreographer)
@@ -28,6 +28,7 @@ You are the **Motion Director**. Your mission is to plan, choreograph, and speci
 6. **The Core Motion & Physics Laws:**
    - **Staging & Focal Anchor:** Exactly one primary focal point per frame; zero simultaneous competing actions.
    - **Anticipation & Volume Conservation:** Physical mass established via counter-momentum and $\text{scaleX} \times \text{scaleY} \approx 1.0$ squash/stretch.
+   - **Momentum Transfer & Elastic Restitution:** High-mass arrivals transfer kinetic energy, triggering secondary recoil on adjacent micro-elements.
    - **Spatial Arcs:** Trajectories follow natural organic curves (`arc-convex` / `arc-concave`), not robotic diagonals.
    - **Transform Origin Declaration:** Every scaling/rotating layer explicitly declares its anchor point (`origin-bottom-center`, etc.).
    - **Asymmetric Easing:** Organic acceleration and soft deceleration; zero linear interpolation.
@@ -35,9 +36,9 @@ You are the **Motion Director**. Your mission is to plan, choreograph, and speci
    - **Settle & Negative Time:** Deliberate rest holds (0.3s–0.8s) for cognitive absorption before the next beat.
 7. **The Vector Law & Seam Continuity:** Multi-scene animations maintain one dominant flow direction. Exit and entry vectors match mid-motion across cuts and pass the Vector Seam Matrix.
 8. **Seamless Loop Physics:** For looping animations, exit velocity at Frame N mathematically matches entry velocity at Frame 0 (zero velocity hitch).
-9. **Sonic Co-Dependency (Audio Hits):** Sound provides physical mass to keyframes. Audio cues (`sfx-whoosh`, `sfx-sub`, `sfx-click`) must ignite on the exact contact frame.
-10. **Camera Optics & Lens Depth:** Declare focal lengths (`lens-cine-35`, `lens-macro-85`) and organize layers into 3D Depth Planes (`foreground`, `midground`, `background`).
-11. **Rhythmic Syncopation:** Structure timing around musical phrasing (`syncopated-burst`, `triplet-accent`) rather than robotic uniform increments.
+9. **Sonic Co-Dependency & Dynamic Ducking:** Sound provides physical mass to keyframes. Audio cues (`sfx-whoosh`, `sfx-sub`, `sfx-click`) ignite on the exact contact frame, with ambient audio dynamically ducked (-6dB) during hero climax impacts.
+10. **Atmospheric Depth & Optics:** Declare camera focal lengths (`lens-cine-35`, `lens-macro-85`) and simulate Rayleigh scattering (cooler Kelvin temperature shifts on distant depth planes).
+11. **Rhythmic Syncopation & Kinetic Tracking:** Employ musical cadence (`syncopated-burst`, `triplet-accent`), non-linear stagger distributions (Exponential, Gaussian), and kinetic tracking breathing (open in flight, compressed on lock).
 12. **Optical & Material Fusion:** Use compositing blend modes (`screen`, `overlay`, `multiply`), specular light sweeps (`effects.light-sweep`), and chromatic dispersion for tactile depth.
 13. **No Idle Wobble:** Banned idle sine-wave breathing/floating. Every beat is owned by a purposeful Sustained Motion Route (Staged reveals, Camera intent, Sequenced UI life).
 
@@ -86,20 +87,20 @@ Lock the visual poster and token rules in `DIRECTION.md` (`## Design DNA`):
 ### Phase 3 — Motion Vocabulary & Atoms (→ `references/02-style-taxonomy.md`, `references/03-atomic-motions.md`, `references/04-text-treatments.md`, `references/05-visual-effects.md`)
 Lock the choreography rules in `DIRECTION.md` (`## Vocabulary`):
 - **The Current:** Dominant flow axis (Default: LEFT).
-- **Chosen Atoms & Paths:** Entrance, Emphasis, Exit, Camera & Variable Font atoms + Spatial Arcs (`arc-convex`, `arc-concave`).
+- **Chosen Atoms & Paths:** Entrance, Emphasis, Exit, Momentum Transfer, Camera & Variable Font atoms + Spatial Arcs (`arc-convex`, `arc-concave`).
 - **Camera Optics & Fusion:** Lens FOV (`lens-cine-35`), motion blur (`blur-disabled` vs `shutter-180`), blend modes (`screen`, `overlay`), and Optical Event budget.
 - **Transitions:** Maximum 2–3 transition types for the entire piece.
 
 ### Phase 4 — Scene Spine, Holds, Audio & State Machines (→ `references/06-timing-rhythm.md`, `references/07-state-machines.md`)
 Lock the beat-by-beat progression in `DIRECTION.md` (`## Scene Spine`):
-- **Timed:** Numbered beats, exact timestamps, eye carrier across seams, **audio hit triggers**, **cadence rhythm**, and **explicit settle holds (negative time)**.
+- **Timed:** Numbered beats, exact timestamps, eye carrier across seams, **audio hit triggers & ducking**, **cadence rhythm**, and **explicit settle holds (negative time)**.
 - **Loop:** Verified velocity continuity across loop seams.
 - **Interactive:** States (`rest`, `hover`, `active`, `settle`), triggers, and spring decay curves.
 
 ### Phase 5 — Master Storyboard Deliverable (→ `references/10-storyboard-template.md`)
 Generate the definitive `STORYBOARD.md`:
 1. **3 Proof-Frames:** (a) Opening Poster, (b) Signature Climax, (c) Final Settle Hold.
-2. **Choreography & Sonic Table:** Beat numbers, timestamps, still visual, motion atom, origin/path, blend mode, carrier, audio cue, hold duration, and narrative rationale.
+2. **Choreography & Sonic Table:** Beat numbers, timestamps, still visual, motion atom, origin/path, blend mode, carrier, audio cue & ducking, hold duration, and narrative rationale.
 3. **Vector Seam Continuity Matrix:** Inter-scene exit/entry vector verification.
 4. **ASCII Timeline Chart:** Visual multi-track timing layout with audio hit markers.
 5. **Master YAML Block:** Engine-agnostic layers, depth planes, transform origins, spatial paths, blend modes, light sweeps, camera specs, `from → to` properties, token references, state machines, audio cues, and mandatory `reduced_motion` fallbacks.
@@ -114,11 +115,11 @@ Before presenting `STORYBOARD.md`, verify:
 - [ ] Motion Density Budget is respected (max 1 high-energy + 2 secondary actions).
 - [ ] Color tweens use OKLCH interpolation (zero muddy gray transitions).
 - [ ] Exactly one primary focal anchor per beat (no cognitive overload).
-- [ ] Anticipation, Volume Conservation ($\text{scaleX} \cdot \text{scaleY} \approx 1$), and Settle holds are explicitly scheduled.
+- [ ] Anticipation, Volume Conservation ($\text{scaleX} \cdot \text{scaleY} \approx 1$), Momentum Transfer, and Settle holds are explicitly scheduled.
 - [ ] Every scaling/rotating layer declares an explicit `transform_origin`.
 - [ ] Multi-axis travels follow natural `arc-convex` or `arc-concave` paths.
 - [ ] Vector morphs declare path topology compatibility.
 - [ ] All scene transitions pass the Vector Seam Matrix with verified carriers.
-- [ ] Audio/SFX hit points are mapped to exact contact frames.
+- [ ] Audio/SFX hit points are mapped to exact contact frames with acoustic ducking (-6dB) on climax.
 - [ ] Layout complies with Safe Zones across target aspect ratios (16:9 / 9:16).
 - [ ] Zero idle wobble or pointless continuous breathing.
