@@ -1,10 +1,23 @@
-# 06 Timing, Rhythm, Audio Sync & Seam Continuity
+# 06 Timing, Rhythm, Rhythmic Syncopation & Seam Continuity
 
-This document establishes the timing architecture, audio/SFX hit point synchronization, seam continuity laws (cross-scene cuts), sustained motion rules, and loop seam physics.
+This document establishes the timing architecture, musical cadence & syncopation, audio/SFX hit point synchronization, seam continuity laws (cross-scene cuts), sustained motion rules, and loop seam physics.
 
 ---
 
-## 1. Seamless Loop Physics (The Zero-Velocity Hitch Law)
+## 1. Rhythmic Syncopation & Musical Cadence (Musical Motion)
+
+Mechanical timing spaces elements in uniform, predictable increments (e.g., 100ms, 200ms, 300ms). Elite motion design employs **musical syncopation**—accenting unexpected beats and creating phrasing:
+
+| Cadence Scheme | Timing Structure | Narrative Feel |
+| :--- | :--- | :--- |
+| **`syncopated-burst`** | `Fast (120ms) → Fast (120ms) → Deliberate Hold (400ms) → Heavy Payoff (600ms)` | Punchy tech stings, kinetic claims |
+| **`polyrhythmic-offset`**| Primary layer on 3-beat rhythm; background accents on 2-beat counterpoint | Sophisticated SaaS dashboards, data viz |
+| **`triplet-accent`** | `Short → Short → Long` (`60ms - 60ms - 240ms`) with accent on the 3rd unit | Typographic word staggers, feature badges |
+| **`staccato-resolve`** | Rapid crisp snaps followed by an elongated, weighted deceleration | UI modal arrivals, menu unfurls |
+
+---
+
+## 2. Seamless Loop Physics (The Zero-Velocity Hitch Law)
 
 For `Piece Type: Loop` (e.g., ambient hero backgrounds, continuous loaders, Rive state loops), the loop boundary must be mathematically imperceptible:
 
@@ -15,7 +28,7 @@ $$\vec{v}_{\text{exit}}(\text{Frame } N) = \vec{v}_{\text{entry}}(\text{Frame } 
 
 ---
 
-## 2. Audio & Sonic Hit Synchronization (Sonic Motion)
+## 3. Audio & Sonic Hit Synchronization (Sonic Motion)
 
 Sound and vision are co-dependent: audio provides weight and tactical clarity to visual keyframes.
 
@@ -31,7 +44,7 @@ Sound and vision are co-dependent: audio provides weight and tactical clarity to
 
 ---
 
-## 3. The Seam Law & Continuity (Inter-Scene Transitions)
+## 4. The Seam Law & Continuity (Inter-Scene Transitions)
 
 A multi-scene animation must feel like **ONE continuous flow**, not a disconnected stack of slides.
 
@@ -57,7 +70,7 @@ Chain movements so each action visibly triggers the next:
 
 ---
 
-## 4. No Idle Wobble & Sustained Motion Routes
+## 5. No Idle Wobble & Sustained Motion Routes
 
 Idle sine wave loops (breathe, float, drift, pulsing glow to fill time) are **STRICTLY BANNED** as sustained motion. They signal to the viewer that the animation has stalled.
 
@@ -73,7 +86,7 @@ Every duration between entrance and exit must be assigned one of these **Sustain
 
 ---
 
-## 5. Orchestration Modes
+## 6. Orchestration Modes
 
 1. **Sequential:** Unit B starts only when Unit A completes (`delayB = delayA + durationA`).
 2. **Overlapping (Standard):** Unit B starts when Unit A is at **60–70% completion**.
@@ -82,7 +95,7 @@ Every duration between entrance and exit must be assigned one of these **Sustain
 
 ---
 
-## 6. Tempo Classifications
+## 7. Tempo Classifications
 
 | Tempo | Character | Duration Scale | Stagger Scale | Target Application |
 | :--- | :--- | :--- | :--- | :--- |
@@ -94,7 +107,7 @@ Every duration between entrance and exit must be assigned one of these **Sustain
 
 ---
 
-## 7. Stillness Before Climax (The Dramatic Comma)
+## 8. Stillness Before Climax (The Dramatic Comma)
 
 Before any major climax, transformation, or punchline, insert a **0.3s – 0.75s deliberate pause**.
 This stillness creates anticipation, focuses the viewer's gaze, and amplifies the impact of the payoff.

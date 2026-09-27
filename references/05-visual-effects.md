@@ -1,6 +1,6 @@
-# 05 Visual Effects, Depth Planes, Blending Modes & Specular Lighting
+# 05 Visual Effects, Camera Optics, Lens FOV & Chromatic Dispersion
 
-This document defines the optical effects layer, 3D depth plane parallax systems, compositing blend modes, specular light sweeps, and motion blur rules.
+This document defines the optical effects layer, 3D depth plane parallax systems, camera focal length / field of view (FOV), compositing blend modes, specular light sweeps, and chromatic dispersion.
 
 ---
 
@@ -12,9 +12,33 @@ This document defines the optical effects layer, 3D depth plane parallax systems
 
 ---
 
-## 2. Specular Lighting & Surface Sheen (Light Sweeps)
+## 2. Camera Optics, Focal Length & Field of View (FOV)
 
-In premium motion graphics, light movement accentuates materiality:
+Camera movement must declare its virtual lens focal length to govern spatial compression and perspective distortion:
+
+| Lens Token | Focal Length / FOV | Visual Character | Best Application |
+| :--- | :--- | :--- | :--- |
+| `lens-wide-24` | 24mm (`84° FOV`) | Extreme dynamic perspective, exaggerated z-travel | High-energy sting openers, dramatic reveals |
+| `lens-cine-35` | 35mm (`63° FOV`) | Balanced cinematic perspective, natural human eye | Hero landing pages, product walkthroughs |
+| `lens-neutral-50`| 50mm (`47° FOV`) | Zero distortion, 1:1 orthographic-like naturalism | Standard UI components, data charts |
+| `lens-macro-85` | 85mm (`28° FOV`) | Compressed depth, flattened perspective, luxury | Close-up typography, hardware spec callouts |
+| `lens-tele-135` | 135mm (`18° FOV`) | Extreme spatial compression, stacked layers | Abstract 2.5D isometric layering |
+
+---
+
+## 3. Chromatic Dispersion & Refractive Optics
+
+Simulate physical light transmission through glass, crystal, and lens edges:
+
+- **Chromatic Aberration (`effects.chromatic-aberration`):** Color fringe splitting (Red/Blue channel offset) on high-contrast edges during high-speed camera motion.
+  - **Offset Token:** `micro` (1–2px split) for luxury glass; `normal` (4–8px split) for high-speed impact.
+- **Refraction Index:**
+  - `refractive_index: 1.52` (Crown Glass / Crystal panels)
+  - `refractive_index: 1.33` (Fluid / Liquid distortion)
+
+---
+
+## 4. Specular Lighting & Surface Sheen (Light Sweeps)
 
 - **Specular Sweep (`effects.light-sweep`):** A 45° directional light reflection travelling across a glass/metal surface.
   - **Properties:** `background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%)`.
@@ -23,9 +47,7 @@ In premium motion graphics, light movement accentuates materiality:
 
 ---
 
-## 3. Compositing & Layer Blending Modes (`mix-blend-mode`)
-
-Use blending modes to fuse visual effects seamlessly into backgrounds:
+## 5. Compositing & Layer Blending Modes (`mix-blend-mode`)
 
 | Mode | Token | Visual Character |
 | :--- | :--- | :--- |
@@ -36,7 +58,7 @@ Use blending modes to fuse visual effects seamlessly into backgrounds:
 
 ---
 
-## 4. Motion Blur & Shutter Angle Policy
+## 6. Motion Blur & Shutter Angle Policy
 
 | Token | Shutter Angle | Application Rule |
 | :--- | :--- | :--- |
@@ -46,28 +68,10 @@ Use blending modes to fuse visual effects seamlessly into backgrounds:
 
 ---
 
-## 5. 3D Depth Planes & Parallax Ratios
+## 7. 3D Depth Planes & Parallax Ratios
 
 | Depth Plane | Z-Position | Parallax Travel Ratio | Blur / Atmosphere | Primary Content |
 | :--- | :--- | :--- | :--- | :--- |
 | **`foreground`** | `Z: +100px` | `1.4x` (Fast travel) | Micro depth-of-field blur | Floating badges, particles, cursor |
 | **`midground` (Focal Plane)**| `Z: 0px` | `1.0x` (1:1 Anchor) | Sharp (Zero blur) | Hero typography, main UI card, charts |
 | **`background`** | `Z: -200px` | `0.4x` (Slow drift) | Soft atmosphere / grain | Grid lines, ambient gradients, cards |
-
----
-
-## 6. Visual Effects Specification
-
-### A. Shadow & Elevation (Depth Layering)
-- `elevation-flat`: `box-shadow: none`
-- `elevation-card`: `box-shadow: 0 4px 12px rgba(0,0,0,0.08)`
-- `elevation-lifted`: `box-shadow: 0 12px 32px rgba(0,0,0,0.16)`
-- `elevation-modal`: `box-shadow: 0 24px 64px rgba(0,0,0,0.24)`
-
-### B. Glow & Luminous Accent (Signal Feedback)
-- **Parameters:** `box-shadow: 0 0 [spread]px var(--accent-glow)`, `opacity: [ghost → visible]`.
-- **Constraint:** Glow is strictly derived from the brand Accent or Signal color. It pulses only on state changes (`fast` or `normal` duration).
-
-### C. Glassmorphism & Materials
-- **Backdrop Filter:** `backdrop-filter: blur(16px) saturate(140%)`.
-- **Border Spec:** 1px solid `rgba(255, 255, 255, 0.12)`.

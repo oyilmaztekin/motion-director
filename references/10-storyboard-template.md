@@ -1,6 +1,6 @@
 # 10 Master Storyboard Template (Hybrid Markdown + YAML)
 
-This document defines the definitive deliverable template produced by `motion-director`. It combines human-readable narrative tables, audio synchronization points, and a machine-verifiable, engine-agnostic YAML specification.
+This document defines the definitive deliverable template produced by `motion-director`. It combines human-readable narrative tables, audio synchronization points, vector seam validation matrices, and a machine-verifiable, engine-agnostic YAML specification.
 
 ---
 
@@ -16,6 +16,9 @@ This document defines the definitive deliverable template produced by `motion-di
 **Primary Matter:** [Type | UI/Product | Data | Material | Mark]
 **Driver Model:** [clock | scroll_scrub | velocity_gesture]
 **The Current:** [LEFT | RIGHT | FORWARD-Z]
+**Color Space:** OKLCH (Perceptual)
+**Lens FOV:** [lens-cine-35 | lens-macro-85 | lens-neutral-50]
+**Rhythmic Cadence:** [syncopated-burst | polyrhythmic-offset | triplet-accent]
 **Target Formats:** [16:9 widescreen, 9:16 vertical reels, 1:1 square]
 **Signature Move:** [The single memorable kinetic mechanism]
 
@@ -29,7 +32,7 @@ This document defines the definitive deliverable template produced by `motion-di
    - *Why it reads paused:* [How the still states the message without animation]
 2. **Signature Climax Frame ([t]s — The Payoff):**
    - *Composition:* [The peak moment of transformation or reveal]
-   - *Optical Event:* [Primary optical event / specular sheen]
+   - *Optical Event:* [Primary optical event / specular sheen / chromatic split]
    - *Sonic Hit:* [Corresponding audio cue]
 3. **Final Settle Hold ([total]s — The Resting State):**
    - *Composition:* [The final resolved layout and CTA during the terminal hold]
@@ -42,11 +45,20 @@ This document defines the definitive deliverable template produced by `motion-di
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **01** | `0.0s - 0.6s` | Ground established, Hero headline | `clip-reveal-left` [Settle] | `origin-left-center`<br>`direct-axis` | `blend-normal` | Headline text line | `sfx-whoosh` (air rush) | `0.4s hold` | Establish core claim |
 | **02** | `1.0s - 1.8s` | Data card emerges (Midground) | `slide-in-up` [Anticipation] + `camera.dolly-in` | `origin-bottom-center`<br>`arc-convex` | `effects.light-sweep`<br>`blend-overlay` | Card border | `sfx-riser` (tension) | `0.6s hold` | Evidence payload |
-| **03** | `2.4s - 3.2s` | Metric counts to 99% + Burst | `counter-up` + `particles.radial-burst` | `origin-center`<br>`volume-preserve` | `blend-screen` | Signal accent ring | `sfx-sub` (bass hit) | `0.8s hold` | Climax payoff |
+| **03** | `2.4s - 3.2s` | Metric counts to 99% + Burst | `counter-up` + `particles.radial-burst` | `origin-center`<br>`volume-preserve` | `blend-screen`<br>`chromatic-split` | Signal accent ring | `sfx-sub` (bass hit) | `0.8s hold` | Climax payoff |
 
 ---
 
-## 3. Timeline Overview (ASCII)
+## 3. Vector Seam Continuity Matrix (Inter-Scene QA)
+
+| Seam # | Cut Time | Scene A Exit Vector | Scene B Entry Vector | Carrier Element | Velocity Continuity | Vector Law Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Seam 1→2** | `0.8s` | `X: -100vw (left)` | `X: +100vw → 0 (left)` | Headline Text Group | Matched mid-motion (≥50%) | **PASS (Vector Matched)** |
+| **Seam 2→3** | `2.0s` | `Z: push-forward (+40px)` | `Z: scale-up (push-forward)` | Metric Card Frame | Matched scale-velocity sign | **PASS (Z-Sign Matched)** |
+
+---
+
+## 4. Timeline Overview (ASCII)
 
 ```text
 [0.0s] ───|-- ground/bg (continuous) ----------------------------------->|
@@ -58,7 +70,7 @@ This document defines the definitive deliverable template produced by `motion-di
 
 ---
 
-## 4. Master Specification (Strict Engine-Agnostic YAML)
+## 5. Master Specification (Strict Engine-Agnostic YAML)
 
 ```yaml
 meta:
@@ -68,7 +80,10 @@ meta:
   category: "kinetic-type"
   total_duration: "3.5s"
   tempo: "moderato"
+  cadence: "syncopated-burst"
   current_vector: "left"
+  color_space: "oklch"
+  lens_fov: "lens-cine-35"
   primary_matter: "Type"
   formats: ["16:9", "9:16"]
   density_budget: { max_high_energy: 1, max_secondary: 2 }
@@ -140,11 +155,14 @@ layers:
       - type: "effects.light-sweep"
         angle: "135deg"
         timing: { delay: 1200ms, duration: "normal" }
+      - type: "effects.chromatic-aberration"
+        split_offset: "micro"
     anticipation:
       recoil: { translateY: "4px", scaleY: 0.95, scaleX: 1.05 } # Volume preserved
       duration: "fast"
     camera:
       dolly_z: { from: 0, to: "40px" }
+      fov: "lens-cine-35"
     carrier:
       element: "div.metric-card"
       target_slot: "next-scene-dock"
