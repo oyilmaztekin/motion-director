@@ -1,12 +1,22 @@
-# 06 Timing, Rhythm, Audio Ducking & Seam Continuity
+# 06 Timing, Rhythm, Frequency Band Binding & Seam Continuity
 
-This document establishes the timing architecture, non-linear stagger falloffs, audio ducking, musical cadence, seam continuity laws, sustained motion rules, and loop seam physics.
+This document establishes the timing architecture, acoustic frequency band binding, non-linear stagger falloffs, audio ducking, musical cadence, seam continuity laws, sustained motion rules, and loop seam physics.
 
 ---
 
-## 1. Non-Linear Stagger Falloff Distributions
+## 1. Acoustic Frequency Band Binding (Audiovisual Resonance)
 
-Uniform linear spacing ($delay = i \times s$) causes mechanical rigidity. Master choreographies employ curved stagger distributions:
+Audio cues must harmonize with the visual mass and frequency of the animated element:
+
+| Frequency Band | Spectral Range | Visual Atom Binding | Physical Resonance |
+| :--- | :--- | :--- | :--- |
+| **`low-sub`** | `20Hz – 120Hz` | Heavy container impacts (`squash-impact`), camera rumbles, hero card arrivals | Deep chest resonance, ground mass |
+| **`mid-snap`** | `500Hz – 2.5kHz`| UI card flips, button clicks, state toggles, variable font weight snaps | Crisp tactile feedback, ear clarity |
+| **`high-air`** | `6kHz – 14kHz` | Specular light sweeps (`effects.light-sweep`), particle bursts, stroke draws | Shimmering luxury, sparkling finish |
+
+---
+
+## 2. Non-Linear Stagger Falloff Distributions
 
 | Stagger Curve | Formula | Visual Dynamic |
 | :--- | :--- | :--- |
@@ -17,7 +27,7 @@ Uniform linear spacing ($delay = i \times s$) causes mechanical rigidity. Master
 
 ---
 
-## 2. Rhythmic Syncopation & Musical Cadence
+## 3. Rhythmic Syncopation & Musical Cadence
 
 - **`syncopated-burst`:** `Fast (120ms) → Fast (120ms) → Deliberate Hold (400ms) → Heavy Payoff (600ms)`.
 - **`polyrhythmic-offset`:** Primary layer on 3-beat rhythm; background accents on 2-beat counterpoint.
@@ -26,24 +36,14 @@ Uniform linear spacing ($delay = i \times s$) causes mechanical rigidity. Master
 
 ---
 
-## 3. Audio Frequency Ducking & Sonic Hit Sync
+## 4. Audio Frequency Ducking & Sonic Hit Sync
 
-### A. Dynamic Acoustic Ducking
 During major visual and sonic impacts (hero `sfx-sub` or crucial VO claim line), background ambient audio and micro-ticks MUST be dynamically ducked:
 $$\text{ambient\_audio\_volume} \mathrel{-}= 6\text{dB}\quad (\text{attack: } 40\text{ms},\; \text{release: } 300\text{ms})$$
 
-### B. Sonic Hit Rules
-1. **Zero Audio Lag:** SFX triggers must land on the **exact frame** of initial visual contact, impact, or trigger ignition.
-2. **Audio Cue Tokens:**
-   - **`whoosh` / `air-rush`:** Attached to high-velocity seam transitions along the Current.
-   - **`impact` / `sub-bass`:** Triggered when the hero focal anchor locks into its final resting position.
-   - **`click` / `mechanical-tick`:** Triggered upon state changes (`pressed`, `toggle`).
-   - **`riser` / `tension-swell`:** Placed during Anticipation (recoil) leading up to a major climax.
-   - **`chime` / `resolution`:** Triggered on completion of a data count-up or goal achievement.
-
 ---
 
-## 4. Seamless Loop Physics (The Zero-Velocity Hitch Law)
+## 5. Seamless Loop Physics (The Zero-Velocity Hitch Law)
 
 For `Piece Type: Loop` (e.g., ambient hero backgrounds, continuous loaders, Rive state loops), the loop boundary must be mathematically imperceptible:
 
@@ -54,7 +54,7 @@ $$\vec{v}_{\text{exit}}(\text{Frame } N) = \vec{v}_{\text{entry}}(\text{Frame } 
 
 ---
 
-## 5. The Seam Law & Continuity (Inter-Scene Transitions)
+## 6. The Seam Law & Continuity (Inter-Scene Transitions)
 
 ### The Vector Law
 > **How Scene A exits dictates how Scene B enters:** same axis, same direction, matched velocity, cut mid-motion on both sides.
@@ -72,13 +72,13 @@ The eye follows physical objects, not abstract dissolves. Strongest transitions 
 
 ---
 
-## 6. No Idle Wobble & Sustained Motion Routes
+## 7. No Idle Wobble & Sustained Motion Routes
 
 Idle sine wave loops (breathe, float, drift) are **STRICTLY BANNED**. Every span between entrance and exit is owned by a purposeful route:
 - **Staged Reveals** · **Camera with Intent** · **Sequenced UI Life** · **Animated Sequences** · **Cursor-Led Action**
 
 ---
 
-## 7. Stillness Before Climax (The Dramatic Comma)
+## 8. Stillness Before Climax (The Dramatic Comma)
 
 Before any major climax, transformation, or punchline, insert a **0.3s – 0.75s deliberate pause**.

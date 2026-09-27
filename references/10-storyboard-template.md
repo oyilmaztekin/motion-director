@@ -17,6 +17,7 @@ This document defines the definitive deliverable template produced by `motion-di
 **Driver Model:** [clock | scroll_scrub | velocity_gesture]
 **The Current:** [LEFT | RIGHT | FORWARD-Z]
 **Color Space:** OKLCH (Perceptual)
+**Pixel Snapping:** dynamic_integer_lock
 **Lens FOV:** [lens-cine-35 | lens-macro-85 | lens-neutral-50]
 **Rhythmic Cadence:** [syncopated-burst | polyrhythmic-offset | triplet-accent]
 **Target Formats:** [16:9 widescreen, 9:16 vertical reels, 1:1 square]
@@ -41,11 +42,11 @@ This document defines the definitive deliverable template produced by `motion-di
 
 ## 2. Beat-by-Beat Choreography & Sonic Table
 
-| Beat | Timestamp | Still Composition & Safe Zone | Motion, Atom & Camera | Origin & Path | Blend & Fog | Carrier Across Seam | Audio Cue & Ducking | Hold / Negative Time | Narrative Why |
+| Beat | Timestamp | Still Composition & Safe Zone | Motion, Atom & Camera | Origin & Path | Blend & Mask | Carrier Across Seam | Audio Cue, Band & Ducking | Hold / Negative Time | Narrative Why |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **01** | `0.0s - 0.6s` | Ground established, Hero headline | `clip-reveal-left` [Settle] + `type.tracking-breath` | `origin-left-center`<br>`direct-axis` | `blend-normal` | Headline text line | `sfx-whoosh` (air rush) | `0.4s hold` | Establish core claim |
-| **02** | `1.0s - 1.8s` | Data card emerges (Midground) | `slide-in-up` [Anticipation] + `camera.dolly-in` | `origin-bottom-center`<br>`arc-convex` | `effects.light-sweep`<br>`blend-overlay` | Card border | `sfx-riser` (tension) | `0.6s hold` | Evidence payload |
-| **03** | `2.4s - 3.2s` | Metric counts to 99% + Burst | `counter-up` + `physics.momentum-transfer` | `origin-center`<br>`volume-preserve` | `blend-screen`<br>`depth-fog-cool` | Signal accent ring | `sfx-sub` (-6dB ducking) | `0.8s hold` | Climax payoff |
+| **01** | `0.0s - 0.6s` | Ground established, Hero headline | `clip-reveal-left` [Settle] + `type.tracking-breath` | `origin-left-center`<br>`direct-axis` | `blend-normal`<br>`feather-soft` | Headline text line | `sfx-whoosh`<br>(mid-snap) | `0.4s hold` | Establish core claim |
+| **02** | `1.0s - 1.8s` | Data card emerges (Midground) | `slide-in-up` [Anticipation] + `camera.dolly-in` | `origin-bottom-center`<br>`arc-convex` | `effects.light-sweep`<br>`blend-overlay` | Card border | `sfx-riser`<br>(high-air) | `0.6s hold` | Evidence payload |
+| **03** | `2.4s - 3.2s` | Metric counts to 99% + Burst | `counter-up` + `physics.momentum-transfer` | `origin-center`<br>`volume-preserve` | `blend-screen`<br>`depth-fog-cool` | Signal accent ring | `sfx-sub`<br>(low-sub, -6dB duck) | `0.8s hold` | Climax payoff |
 
 ---
 
@@ -83,6 +84,7 @@ meta:
   cadence: "syncopated-burst"
   current_vector: "left"
   color_space: "oklch"
+  pixel_snapping: "dynamic_integer_lock"
   lens_fov: "lens-cine-35"
   primary_matter: "Type"
   formats: ["16:9", "9:16"]
@@ -109,8 +111,10 @@ layers:
     depth_plane: "midground"
     matter: "Type"
     transform_origin: "origin-left-center"
+    vertical_alignment: "cap-height-centered"
     spatial_path: "direct-axis"
     blend_mode: "blend-normal"
+    mask_feather: "feather-soft"
     motion_blur: "blur-disabled"
     atom: "entrance.clip-reveal-left"
     timing:
@@ -129,6 +133,7 @@ layers:
     audio_cue:
       type: "whoosh"
       cue: "sfx-whoosh"
+      frequency_band: "mid-snap"
       at: 0ms
     reduced_motion:
       fallback: "entrance.fade-in"
@@ -172,6 +177,7 @@ layers:
     audio_cue:
       type: "swell"
       cue: "sfx-riser"
+      frequency_band: "high-air"
       at: 1000ms
     reduced_motion:
       fallback: "entrance.fade-in"
@@ -193,6 +199,7 @@ layers:
     audio_cue:
       type: "impact"
       cue: "sfx-sub"
+      frequency_band: "low-sub"
       at: 2400ms
       ducking: "-6dB"
     reduced_motion:

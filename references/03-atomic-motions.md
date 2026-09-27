@@ -57,11 +57,12 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 5. Optical & Specular Light Atoms
+## 5. Optical, Vector Trails & Specular Light Atoms
 
 | Atom Name | Description | Key Optical Properties | Default Duration | Easing | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `effects.light-sweep` | 45° metallic sheen across surface | `background-position: -200% → 200%`, `angle: 135deg` | `normal` | `ease-out-expo` | Med |
+| `effects.vector-trail` | Decaying multi-frame ghosting silhouette | `trail_count: 3`, `decay: 0.35`, `delay: 16ms` | `fast` | `ease-out-expo` | High |
 | `effects.glow-flare` | High-intensity luminous ignition | `filter: drop-shadow(0 0 24px accent)`, `opacity: 0 → 1 → 0` | `fast` | `spring-snappy` | High |
 
 ---

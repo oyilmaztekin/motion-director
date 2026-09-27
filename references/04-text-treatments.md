@@ -1,10 +1,19 @@
-# 04 Text Treatments, Variable Fonts & Kinetic Tracking
+# 04 Text Treatments, Variable Fonts, Cap-Height Alignment & Kinetic Tracking
 
-Text is the primary carrier of direct conceptual meaning. This document defines typographic decomposition, Variable Font axis interpolations, non-linear stagger falloffs, kinetic tracking breathing, reading economics, and audio synchronization.
+Text is the primary carrier of direct conceptual meaning. This document defines typographic decomposition, Variable Font axis interpolations, optical cap-height vertical alignment, non-linear stagger falloffs, kinetic tracking breathing, reading economics, and audio synchronization.
 
 ---
 
-## 1. Variable Font Axis Morphing & Tracking Kinetics
+## 1. Optical Cap-Height Alignment (Zero Baseline Hop)
+
+When animating font weight (`wght`), width (`wdth`), or font scale, text can vertically jitter if anchored to arbitrary CSS baselines.
+
+- **`vertical_alignment: cap-height-centered` (Mandatory for Hero Reveals):** Anchors vertical center to the font's capital height box, eliminating baseline hopping during dynamic weight interpolations.
+- **`vertical_alignment: baseline-locked`:** Used for inline text paragraphs to maintain strict typographic grid alignment.
+
+---
+
+## 2. Variable Font Axis Morphing & Tracking Kinetics
 
 ### A. Intrinsic Font Axis Morphs
 | Axis | Tag | Range | Narrative Purpose | Easing |
@@ -20,7 +29,7 @@ Text is the primary carrier of direct conceptual meaning. This document defines 
 
 ---
 
-## 2. Decomposition Levels & Performance Budgets
+## 3. Decomposition Levels & Performance Budgets
 
 | Level | Description | Recommended Usage | Performance Budget |
 | :--- | :--- | :--- | :--- |
@@ -31,7 +40,7 @@ Text is the primary carrier of direct conceptual meaning. This document defines 
 
 ---
 
-## 3. Non-Linear Stagger Falloff Curves
+## 4. Non-Linear Stagger Falloff Curves
 
 Linear stagger delay ($d = i \times s$) feels mechanical. Use curved falloff distributions:
 
@@ -43,7 +52,7 @@ Linear stagger delay ($d = i \times s$) feels mechanical. Use curved falloff dis
 
 ---
 
-## 4. Text Pattern Library
+## 5. Text Pattern Library
 
 | Pattern | Decomposition | Key Properties (`from → to`) | Easing Token | Duration Token | Stagger Default |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -59,7 +68,7 @@ Linear stagger delay ($d = i \times s$) feels mechanical. Use curved falloff dis
 
 ---
 
-## 5. Reading Economics & Audio Sync
+## 6. Reading Economics & Audio Sync
 
 1. **Reading Speed Budget:** Allocate at least **200–250ms per word** for comfortable human comprehension.
 2. **The Dramatic Comma (Settle Hold):** Once the complete headline or claim is revealed, enforce a **minimum 0.5s – 1.0s static hold** before any secondary transition or scene cut occurs.

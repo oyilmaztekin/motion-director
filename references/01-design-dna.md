@@ -1,6 +1,6 @@
-# 01 Design DNA, Physics Laws & Perceptual Color Space
+# 01 Design DNA, Physics Laws, Perceptual Color & Pixel Snapping
 
-This document establishes the foundation of the project's motion identity, matter composition, perceptual color interpolation, physics laws, driver models, spatial origin standards, and motion density budgets. All scene specifications and storyboards must reference the tokens and rules defined here.
+This document establishes the foundation of the project's motion identity, matter composition, perceptual color interpolation, pixel snapping standards, physics laws, driver models, spatial origin standards, and motion density budgets. All scene specifications and storyboards must reference the tokens and rules defined here.
 
 ---
 
@@ -18,18 +18,21 @@ Every animated scene produced by `motion-director` must satisfy these foundation
 3. **Perceptual Color Space (OKLCH Law):**
    - Color transitions and gradient morphs MUST interpolate in polar perceptual color space (**OKLCH** or **CIELAB**).
    - Standard sRGB interpolation creates desaturated, muddy gray dead-zones midway through transitions. OKLCH preserves constant chroma and perceived luminosity throughout the entire tween.
-4. **Anticipation & Volume Conservation (Squash & Stretch Law):**
+4. **Pixel Snapping & Sub-Pixel Anti-Aliasing Guard:**
+   - Dynamic motion uses smooth sub-pixel float coordinates during transit.
+   - Upon arriving at any **Hold or Rest state**, all coordinates and dimensions MUST snap to whole integer pixels (`Math.round`) to prevent edge fuzziness and shimmering artifacts.
+5. **Anticipation & Volume Conservation (Squash & Stretch Law):**
    - Major actions must be preceded by a micro counter-momentum or compression.
    - **Conservation of Volume:** When an object compresses or stretches, its 2D area/volume must remain constant:
      $$\text{scaleX} \times \text{scaleY} \approx 1.0$$
-5. **Spatial Arcs:**
+6. **Spatial Arcs:**
    - Organic motion never travels along robotic diagonal vectors. Trajectories follow natural gravitational/momentum curves (`arc-convex` or `arc-concave`). Linear paths (`direct-axis`) are reserved for rigid mechanical UI rails.
-6. **Asymmetric Easing:**
+7. **Asymmetric Easing:**
    - `linear` interpolation is banned except for infinite ambient cycles or raw progress bars.
    - Organic motion requires asymmetric curves: aggressive acceleration (`ease-in`) paired with a long, gentle deceleration/settle (`ease-out`), or mass-damped springs.
-7. **Follow-Through & Overlapping Action:**
+8. **Follow-Through & Overlapping Action:**
    - Elements never lock into place on the exact same frame. Secondary layers, attached badges, shadows, and text settle with a 50–150ms delay/offset relative to the primary hero.
-8. **Settle & Negative Time:**
+9. **Settle & Negative Time:**
    - Elements do not hit target values like a brick wall; they decelerate smoothly into a rest state (`decay`).
    - Every completed action must include intentional negative time (**0.3s – 0.8s hold**) allowing the viewer to absorb the message before the next beat begins.
 
@@ -51,8 +54,6 @@ Every scaling, rotating, or morphing element MUST declare its transform anchor p
 ---
 
 ## 3. Blend Modes & Layer Fusion
-
-Layers blend organically into backgrounds rather than appearing as flat stickers:
 
 | Token | CSS / Compositing Mode | Motion Graphics Purpose |
 | :--- | :--- | :--- |
