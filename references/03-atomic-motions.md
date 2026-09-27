@@ -11,6 +11,7 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 - **Settle Integration:** Atoms marked `[Settle]` execute a 100–200ms damped deceleration into rest.
 - **Spatial Trajectory:** Diagonal and multi-axis transitions follow `arc-convex` or `arc-concave` paths by default.
 - **Transform Origin Declaration:** Every scaling/rotating atom must declare its origin (`origin-center`, `origin-bottom-center`, etc.).
+- **Vector Morph Topology:** Morph atoms declare path topology (`matched_vertices` or `geometric_unfold`) to prevent self-intersections.
 - **Max Atoms Per Element:** No single element may combine more than 3 simultaneous atoms.
 - **Entrance & Exit Exclusivity:** An element cannot execute an entrance atom and an exit atom simultaneously.
 
@@ -36,7 +37,26 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 3. Typographic & Variable Font Atoms
+## 3. Particle & Emitter Dynamics
+
+| Atom Name | Description | Key Physics Properties | Default Duration | Easing | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `particles.radial-burst` | 360° celebratory or click burst | `count: 16-24`, `spread: 360deg`, `gravity: 0.4`, `decay: 0.9` | `fast` | `ease-out-expo` | Med |
+| `particles.directional-flow`| Particles flowing along bezier vector | `velocity: 250px/s`, `emission_rate: 12/s`, `spread: 15deg` | Continuous | `linear` | Med |
+| `particles.ambient-bokeh` | Subtle floating luminous discs | `count: 8-12`, `scale: 4-12px`, `opacity: 0.15 → 0.4` | `glacial` | `ease-in-out-cubic` | Low |
+
+---
+
+## 4. Optical & Specular Light Atoms
+
+| Atom Name | Description | Key Optical Properties | Default Duration | Easing | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `effects.light-sweep` | 45° metallic sheen across surface | `background-position: -200% → 200%`, `angle: 135deg` | `normal` | `ease-out-expo` | Med |
+| `effects.glow-flare` | High-intensity luminous ignition | `filter: drop-shadow(0 0 24px accent)`, `opacity: 0 → 1 → 0` | `fast` | `spring-snappy` | High |
+
+---
+
+## 5. Typographic & Variable Font Atoms
 
 | Atom Name | Description | Key Properties (`from → to`) | Default Duration | Default Easing | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -46,7 +66,7 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 4. Camera & Spatial 3D Atoms
+## 6. Camera & Spatial 3D Atoms
 
 | Atom Name | Description | Key Spatial Properties | Default Duration | Default Easing | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -57,13 +77,12 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 5. Emphasis & Squash Atoms (Active in-scene focal moments)
+## 7. Emphasis & Squash Atoms
 
 | Atom Name | Description | Key Properties | Default Duration | Default Easing | Reduced Motion Fallback | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | `squash-impact` | Volume-conserved landing impact | `scaleY: 0.78, scaleX: 1.28 → (1.0, 1.0)` | `fast` | `spring-snappy` | None | Low |
 | `scale-pop` [Anticipation] | Tactile punch with settle | `scale: 1.0 → 1.08 → 1.0` | `fast` | `spring-snappy` | Static highlight | Low |
-| `glow-pulse` | Luminous accent breathing | `box-shadow` or `filter: drop-shadow` | `slow` | `ease-in-out-cubic`| Static outline | High |
 | `ring-expand` | Radial ripple emanating outward | `scale: 1.0 → 1.4`, `opacity: 0.8 → 0` | `normal` | `ease-out-cubic` | None | Med |
 | `underline-draw` | Accent line draws under hero word | `scaleX: 0 → 1`, `transformOrigin: left` | `normal` | `ease-out-expo` | Instant show | Low |
 | `color-flash` | Transient signal color ignition | `color: ground → signal → ink` | `fast` | `ease-out-cubic` | Instant color snap | Low |
@@ -71,7 +90,7 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 6. Exit Atoms (Elements leaving the scene)
+## 8. Exit Atoms (Elements leaving the scene)
 
 | Atom Name | Description | Key Properties | Default Duration | Default Easing | Reduced Motion Fallback | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -83,11 +102,11 @@ This document specifies the complete atomic motion unit catalog. Complex animati
 
 ---
 
-## 7. Transition & Seam Atoms (Inter-scene continuity)
+## 9. Transition & Vector Morph Atoms
 
 | Atom Name | Description | Key Properties | Default Duration | Default Easing | Continuity Role |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `cut-the-curve` | Exit & entry matched mid-velocity | `x: 0 → -100vw` (Exit) + `x: 100vw → 0` (Entry) | `normal` | `ease-in-expo` + `ease-out-expo` | Master Seam Standard |
-| `morph-shape` | Shape A vertices interpolate to Shape B | `d: pathA → pathB` | `slow` | `ease-in-out-cubic` | Shared Element Carrier |
+| `morph-shape` | Shape A vertices interpolate to Shape B | `d: pathA → pathB`, `topology: matched_vertices` | `slow` | `ease-in-out-cubic` | Shared Element Carrier |
 | `zoom-through` | Massive scale expansion revealing next beat | `scale: 1.0 → 8.0`, `opacity: 1 → 0` | `slow` | `ease-in-expo` | Deep Dive Vector |
 | `carrier-dock` | Element flies across cut into new UI slot | `x, y, scale: posA → posB` | `slow` | `spring-gentle` | Direct Eye Carrier |

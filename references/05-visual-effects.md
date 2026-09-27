@@ -1,6 +1,6 @@
-# 05 Visual Effects, Depth Planes & Shutter Motion Blur
+# 05 Visual Effects, Depth Planes, Blending Modes & Specular Lighting
 
-This document defines the optical effects layer, 3D depth plane parallax systems, camera coordinates, and motion blur / shutter angle rules.
+This document defines the optical effects layer, 3D depth plane parallax systems, compositing blend modes, specular light sweeps, and motion blur rules.
 
 ---
 
@@ -12,9 +12,31 @@ This document defines the optical effects layer, 3D depth plane parallax systems
 
 ---
 
-## 2. Motion Blur & Shutter Angle Policy
+## 2. Specular Lighting & Surface Sheen (Light Sweeps)
 
-High-speed movement requires deliberate optical blur settings to balance sharpness with fluidity:
+In premium motion graphics, light movement accentuates materiality:
+
+- **Specular Sweep (`effects.light-sweep`):** A 45° directional light reflection travelling across a glass/metal surface.
+  - **Properties:** `background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%)`.
+  - **Angle & Position:** `background-position: -200% → 200%`, `duration: normal`, `easing: ease-out-expo`.
+- **Dynamic Light Tilt:** As a 3D layer rotates along X/Y, its gradient highlight angle shifts proportionally to simulate physical light reflection.
+
+---
+
+## 3. Compositing & Layer Blending Modes (`mix-blend-mode`)
+
+Use blending modes to fuse visual effects seamlessly into backgrounds:
+
+| Mode | Token | Visual Character |
+| :--- | :--- | :--- |
+| `screen` | `blend-screen` | Luminous glow, sparks, lens flares (black pixels become transparent). |
+| `multiply` | `blend-multiply` | Ink stamps, drop shadows, dark vignettes on light backgrounds. |
+| `overlay` | `blend-overlay` | Specular highlights, subtle film grain, surface reflections. |
+| `color-dodge` | `blend-color-dodge` | High-energy neon impacts, laser charges, hyper-bright highlights. |
+
+---
+
+## 4. Motion Blur & Shutter Angle Policy
 
 | Token | Shutter Angle | Application Rule |
 | :--- | :--- | :--- |
@@ -24,9 +46,7 @@ High-speed movement requires deliberate optical blur settings to balance sharpne
 
 ---
 
-## 3. 3D Depth Planes & Parallax Ratios
-
-When constructing layered spatial compositions, assign every layer to a canonical depth plane:
+## 5. 3D Depth Planes & Parallax Ratios
 
 | Depth Plane | Z-Position | Parallax Travel Ratio | Blur / Atmosphere | Primary Content |
 | :--- | :--- | :--- | :--- | :--- |
@@ -36,39 +56,18 @@ When constructing layered spatial compositions, assign every layer to a canonica
 
 ---
 
-## 4. Camera Transforms & Cinematic Moves
-
-The camera represents the viewer's eye moving through 3D space:
-
-- **`camera.pan(x, y)`:** Smooth lateral viewpoint sweep along the Current (`ease-out-expo`).
-- **`camera.dolly(z)`:** Moving the camera forward/backward to tighten focus or reveal surroundings.
-- **`camera.rack_focus(from_plane, to_plane)`:** Shifting sharp focus from background to foreground over `normal` duration.
-
----
-
-## 5. Visual Effects Specification
+## 6. Visual Effects Specification
 
 ### A. Shadow & Elevation (Depth Layering)
-| Token | Properties | Usage |
-| :--- | :--- | :--- |
-| `elevation-flat` | `box-shadow: none` | Base planar surface |
-| `elevation-card` | `box-shadow: 0 4px 12px rgba(0,0,0,0.08)` | Resting card / component |
-| `elevation-lifted`| `box-shadow: 0 12px 32px rgba(0,0,0,0.16)` | Active hover state / dragging |
-| `elevation-modal` | `box-shadow: 0 24px 64px rgba(0,0,0,0.24)` | Top-level modal dialog |
+- `elevation-flat`: `box-shadow: none`
+- `elevation-card`: `box-shadow: 0 4px 12px rgba(0,0,0,0.08)`
+- `elevation-lifted`: `box-shadow: 0 12px 32px rgba(0,0,0,0.16)`
+- `elevation-modal`: `box-shadow: 0 24px 64px rgba(0,0,0,0.24)`
 
 ### B. Glow & Luminous Accent (Signal Feedback)
 - **Parameters:** `box-shadow: 0 0 [spread]px var(--accent-glow)`, `opacity: [ghost → visible]`.
 - **Constraint:** Glow is strictly derived from the brand Accent or Signal color. It pulses only on state changes (`fast` or `normal` duration).
 
-### C. Blur & Depth of Field
-- **Entrance Blur:** `blur(12px) → blur(0)` with `opacity: 0 → 1`.
-- **Background Dim/Veil:** Background content blurs to `blur(8px)` while foreground modal arrives.
-
-### D. Glassmorphism & Materials
+### C. Glassmorphism & Materials
 - **Backdrop Filter:** `backdrop-filter: blur(16px) saturate(140%)`.
 - **Border Spec:** 1px solid `rgba(255, 255, 255, 0.12)`.
-- **Rule:** Use sparingly on floating navigation or modals; never apply to multiple nested layers.
-
-### E. Masking & Clipping
-- **Inset Wipe:** `clip-path: inset([top] [right] [bottom] [left])`.
-- **Circle Expand:** `clip-path: circle(0% at [x] [y]) → circle(150% at [x] [y])`.
