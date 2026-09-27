@@ -91,6 +91,7 @@ meta:
   project: "[Project Name]"
   piece_type: "timed" # timed | interactive | loop
   driver: "clock" # clock | scroll_scrub | velocity_gesture
+  direction: "ltr" # ltr | rtl
   category: "kinetic-type"
   total_duration: "3.5s"
   tempo: "moderato"
@@ -126,10 +127,13 @@ layers:
     matter: "Type"
     transform_origin: "origin-left-center"
     vertical_alignment: "cap-height-centered"
+    apca_contrast: "Lc-82"
     spatial_path: "direct-axis"
     path_continuity: "G2-smooth"
+    tangent_lock: "continuous-g2"
     blend_mode: "blend-normal"
     mask_feather: "feather-soft"
+    mask_optical_padding: { top: "0.15em", bottom: "0.25em" }
     motion_blur: "blur-disabled"
     atom: "entrance.clip-reveal-left"
     timing:
@@ -165,6 +169,7 @@ layers:
     transform_origin: "origin-bottom-center"
     spatial_path: "arc-convex"
     path_continuity: "G2-smooth"
+    tangent_lock: "continuous-g2"
     blend_mode: "blend-overlay"
     motion_blur: "shutter-180"
     atom: "entrance.slide-in-up"
@@ -205,6 +210,31 @@ layers:
       frequency_band: "high-air"
       mix_stem: "stem-foley-ui"
       at: 1000ms
+    reduced_motion:
+      fallback: "entrance.fade-in"
+      duration: "fast"
+
+  - id: "growth-trend-line"
+    element: "svg.chart-path"
+    z: 25
+    depth_plane: "midground"
+    parallax_multiplier: 0.55
+    matter: "Data"
+    spatial_path: "arc-convex"
+    tangent_lock: "continuous-g2"
+    atom: "vector.path-draw"
+    timing:
+      delay: 1600ms
+      duration: "slow"
+      easing: "ease-in-out-cubic"
+    properties:
+      strokeDashoffset: { from: "100%", to: "0%" }
+    audio_cue:
+      type: "tick"
+      cue: "sfx-click"
+      frequency_band: "high-air"
+      mix_stem: "stem-foley-ui"
+      at: 1600ms
     reduced_motion:
       fallback: "entrance.fade-in"
       duration: "fast"
